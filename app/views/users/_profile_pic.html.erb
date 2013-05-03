@@ -1,0 +1,47 @@
+<div id="profile_picture_<%= user.id %>" class="profile_pic">
+    <div class="hours">
+        <%= user.hours.size %><br/>
+        <%= user.hours.size == 1 ? "hour" : "hours" %>
+    </div>
+    <div class="name"><%= user.first_name %></div>
+    <div class="photo" style="background-image: url(<%= user.picture.url.gsub "https", "http" %>);"></div>
+</div>
+
+<div style="display:none">
+    <div id="picture_upload_popup_<%= user.id %>" class="popup">
+    <%= form_for user, :html => {:multipart => true} do |f| %>
+      <p>
+        <label>Profile Picture</label>
+        <%= f.file_field :picture %>
+      </p>
+    <% end %>
+    </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $("#profile_picture_<%= user.id %>").colorbox({opacity: .5, inline:true,  href: $("#picture_upload_popup_<%= user.id %>")});
+  });
+
+$(function () {
+    $('#edit_user_<%= user.id %>').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+          console.log(data);
+          $.colorbox.close();
+          $.get("users/<%= user.id %>", function(data){
+            url = data.picture.url.replace("https", "http");
+            $("#profile_picture_<%= user.id %> .photo").css("background-image", "url("+url+")");
+          });
+        },
+        fail: function (e, data) {
+          console.log(data);
+          $.colorbox.close();
+          $.get("users/<%= user.id %>", function(data){
+            url = data.picture.url.replace("https", "http");
+            $("#profile_picture_<%= user.id %> .photo").css("background-image", "url("+url+")");
+          });
+        }
+    });
+});
+</script>

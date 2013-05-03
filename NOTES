@@ -1,0 +1,20 @@
+
+Donation experience:
+ Don't hard code the student/teacher icons...
+ Would be nice to have an easy (reusable) way of attaching tags/notes/pictures to things...
+ Hour Details expand (popup?)
+   List donors, notes, other information...
+ Hour list expand
+ Don't hard-code grace's image into the _user.html.erb file.  Need to have better profile picture capabilities.
+ Finish converting profile page mockup
+ Interface adding notes 
+ Create the rest of Grace's data...
+
+ Security and access crontrol audit for all actions.
+
+ Sign in/up/out
+ Let people make profiles to apply for scholarships
+
+ Profiles with hours and donors listed
+ List the scholarshipable opportunities (maybe a 2nd link under Education Provided).
+ Make mission statement link to mission page

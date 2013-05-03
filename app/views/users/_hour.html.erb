@@ -1,0 +1,28 @@
+<div class="hour_details">
+  <div class="hour_details_days_ago">  
+    <%= pluralize hour.days_ago, "days" %> ago
+  </div>
+  <div class="hour_details_number">  
+     #<%= hour.number_for_user %>
+  </div>
+  <div class="hour_details_donors">  
+     <%= pluralize hour.donors.size, "Donor" %>
+  </div>
+  <div class="hour_details_content">
+      <div class="hour_details_left">
+          <h3>Student Notes</h3>
+          <img class="icon" src="<%= asset_path 'grace_picture_square.png' %>"></img>
+          <%= render :partial => "note", :locals => {:note => hour.most_recent_student_note} %>
+      </div>
+      <div class="hour_details_right">
+          <h3>Teacher Notes</h3>
+          <img class="icon" src="<%= asset_path 'thoughtstem_logo.png' %>"></img>
+          <%= render :partial => "note", :locals => {:note => hour.most_recent_teacher_note} %>
+      </div>
+      <div class="bottom">
+          (<span class="see_more">
+             View Details 
+          </span>)
+      </div>
+  </div>
+</div>

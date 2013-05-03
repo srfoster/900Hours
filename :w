@@ -1,0 +1,83 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+
+        body{
+          background: black;
+          padding: 0px;
+          margin: 0px;
+          font-family: Helvetica;
+        }
+  
+        #top_bar{
+          background: #270145;
+          width: 100%;
+          height: 75px;
+          border-bottom: 3px solid white;
+        }
+
+        #logo{
+          width: 170px;
+          height: 170px;
+          position: absolute; 
+          top: 0px;
+          left: 20px;
+        }
+
+        #nav_links{
+          color: purple;
+          float: right;
+          margin-right: 20px;
+          margin-top: 50px;
+          font-size: 18pt;
+        }
+
+        #nav_links li{
+          float: left;
+          margin-left: 20px;
+          color: #8f00fd;
+        }
+
+        #nav_links li a{
+          color: white;
+          text-decoration: none;
+        }
+
+        #glow_image{
+          position: absolute;
+          top: 0px;
+          right: -1px;
+        }
+
+        #main_container{
+          width: 960px;
+          height: 100%;
+          margin: auto auto auto auto;
+          padding-top: 20px;
+        }
+
+#inner_main_container{
+  border: 3px solid white;
+  position: relative;
+  top: 100px;
+  width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 40px;
+}
+
+.popup{
+  background: black;
+  height: 100px;
+}

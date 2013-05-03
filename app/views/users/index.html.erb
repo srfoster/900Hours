@@ -1,0 +1,5 @@
+<div id="inner_main_container">
+  <% @users.each do |user| %>
+      <%= render :partial => "user", :locals => {:user => user} %>
+  <% end %>
+</div>

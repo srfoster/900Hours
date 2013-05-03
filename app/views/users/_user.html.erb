@@ -1,0 +1,23 @@
+<div class="personal_info">
+    <%= render :partial => "profile_pic", :locals => {:user => user} %>
+    <div class="about_me">
+        <h1>About <%= user.first_name %></h1>
+
+        <p>Lorem ipsum dolor sit amet, consectetur 
+        adipiscing elit. Duis viverra tincidunt ipsum 
+        eget rutrum. Aenean eleifend nisi quis lorem 
+        posuere venenatis tincidunt orci feugiat. 
+        Donec orci nulla, dapibus ut scelerisque sed, 
+        ornare non metus. Aliquam venenatis eros et 
+        ipsum euismod scelerisque. Aenean augue, 
+        fermentum quis vestibulum ac, vehicula quis 
+        velit. Vivamus eget arcu sit amet lectus 
+        venenatis pulvinar vel gravida dolor. </p>
+    </div>
+
+    <div class="newsfeed">
+      <% user.hours.reverse.each do |h| %>
+         <%= render :partial => "hour", :locals => {:hour => h} %>
+      <% end %>
+    </div>
+</div>

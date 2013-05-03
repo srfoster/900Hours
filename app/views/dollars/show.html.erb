@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Donation:</b>
+  <%= @dollar.donation_id %>
+</p>
+
+<p>
+  <b>Hour:</b>
+  <%= @dollar.hour_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_dollar_path(@dollar) %> |
+<%= link_to 'Back', dollars_path %>
