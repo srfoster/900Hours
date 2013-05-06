@@ -1,0 +1,70 @@
+<div class="about_me" id="about_me_<%= user.id %>">
+    <img class="edit_icon" src="<%= asset_path 'edit_icon.png' %>"></img>
+    <h1>About <%= user.first_name %></h1>
+
+    <div class="about_me_text">
+        <% if user.about_me %>
+            <%= simple_format(user.about_me.note) %>
+        <% else %>
+            (Nothing yet.)
+        <% end %>
+    </div>
+    <div class="about_me_edit">
+        <% if user.about_me %>
+            <textarea rows="15" cols="48"><%= user.about_me.note %></textarea>
+        <% else %>
+            <textarea rows="15" cols="48"></textarea>
+        <% end %>
+    </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $("#about_me_<%= user.id %> h1").hover(
+        function(){
+          $("#about_me_<%= user.id %> .edit_icon").show();
+        },
+        function(){
+          $("#about_me_<%= user.id %> .edit_icon").hide();
+        }
+    );
+
+
+    $("#about_me_<%= user.id %> h1").click(function(){
+       $("#about_me_<%= user.id %> .about_me_text").toggle();
+       $("#about_me_<%= user.id %> .about_me_edit").toggle();
+    });
+
+    $("#about_me_<%= user.id %> .about_me_edit textarea").blur(
+        function(){
+           $("#about_me_<%= user.id %> .about_me_text").show();
+           $("#about_me_<%= user.id %> .about_me_edit").hide();
+        }
+    );
+
+
+    $("#about_me_<%= user.id %> .about_me_edit textarea").keydown(function(){
+        $.ajax({
+           url: "notes/<%= user.about_me.id %>", 
+           type: "PUT",
+           data: {note: {note: $("#about_me_<%= user.id %> .about_me_edit textarea").val()}},
+           success: function(data){
+               var curr = $("#about_me_<%= user.id %> .about_me_edit textarea").val()
+               $("#about_me_<%= user.id %> .about_me_text").html(simpleFormat(curr));
+           }
+       }); 
+   });
+
+   });
+
+function simpleFormat(str) {
+  str = str.replace(/\r\n?/, "\n");
+  str = $.trim(str);
+  if (str.length > 0) {
+    str = str.replace(/\n\n+/g, '</p><p>');
+    str = str.replace(/\n/g, '<br />');
+    str = '<p>' + str + '</p>';
+  }
+  return str;
+}
+</script>

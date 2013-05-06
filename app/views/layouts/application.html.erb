@@ -30,5 +30,19 @@
   </div>
 
   <img id="logo" src="<%= asset_path 'logo.png' %>"></img>
+
+  <div style="display:none">
+    <div id="error_popup">
+
+    </div>
+  </div>
+
+  <script>
+    function error_popup(msg){
+      $("#error_popup").html(msg);
+      $.colorbox({opacity: .5, inline:true, href:$("#error_popup")});
+    }
+  </script>
+  
 </body>
 </html>

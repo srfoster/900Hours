@@ -4,42 +4,60 @@
         <%= user.hours.size == 1 ? "hour" : "hours" %>
     </div>
     <div class="name"><%= user.first_name %></div>
-    <div class="photo" style="background-image: url(<%= user.picture.url.gsub "https", "http" %>);"></div>
+    <img class="photo" src="<%= user.picture.url.gsub "https", "http" %>"></img>
+    <img class="edit_icon" src="<%= asset_path 'edit_icon.png' %>"></img>
 </div>
 
 <div style="display:none">
     <div id="picture_upload_popup_<%= user.id %>" class="popup">
+    <h3>Upload New Picture</h3>
     <%= form_for user, :html => {:multipart => true} do |f| %>
-      <p>
-        <label>Profile Picture</label>
-        <%= f.file_field :picture %>
-      </p>
+       <%= f.file_field :picture %>
     <% end %>
+    <img style="display:none" class="feedback" src="<%= asset_path 'ajax-loader.gif' %>"/>
     </div>
 </div>
 
 <script>
   $(document).ready(function(){
     $("#profile_picture_<%= user.id %>").colorbox({opacity: .5, inline:true,  href: $("#picture_upload_popup_<%= user.id %>")});
+
+
+    $("#profile_picture_<%= user.id %>").hover(
+        function(){
+          $("#profile_picture_<%= user.id %> .edit_icon").show();
+        },
+        function(){
+          $("#profile_picture_<%= user.id %> .edit_icon").hide();
+        }
+    );
   });
 
 $(function () {
     $('#edit_user_<%= user.id %>').fileupload({
         dataType: 'json',
+        start: function(e){
+            $("#picture_upload_popup_<%= user.id %> .feedback").show();
+            $("#picture_upload_popup_<%= user.id %> form").hide();
+        },
         done: function (e, data) {
-          console.log(data);
+          console.log("DONE")
+          $("#picture_upload_popup_<%= user.id %> .feedback").hide();
+          $("#picture_upload_popup_<%= user.id %> form").show();
           $.colorbox.close();
           $.get("users/<%= user.id %>", function(data){
             url = data.picture.url.replace("https", "http");
-            $("#profile_picture_<%= user.id %> .photo").css("background-image", "url("+url+")");
+            $("#profile_picture_<%= user.id %> .photo").attr("src", url);
           });
         },
         fail: function (e, data) {
-          console.log(data);
+          console.log("FAIL")
+          $("#picture_upload_popup_<%= user.id %> .feedback").hide();
+          $("#picture_upload_popup_<%= user.id %> form").show();
           $.colorbox.close();
           $.get("users/<%= user.id %>", function(data){
             url = data.picture.url.replace("https", "http");
-            $("#profile_picture_<%= user.id %> .photo").css("background-image", "url("+url+")");
+            $("#profile_picture_<%= user.id %> .photo").attr("src", url);
           });
         }
     });

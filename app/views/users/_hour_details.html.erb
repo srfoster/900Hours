@@ -1,0 +1,19 @@
+  <div class="hour_details_left">
+      <h3>Student Notes</h3>
+      <img class="icon" src="<%= hour.user.picture.url.gsub "https", "http" %>"></img>
+      <%= render :partial => "users/note", :locals => {:note => hour.most_recent_student_note} %>
+  </div>
+  <div class="hour_details_right">
+      <h3>Teacher Notes</h3>
+      <% if hour.teacher %>
+          <img class="icon" src="<%= hour.teacher.picture.url.gsub "https", "http" %>"></img>
+          <%= render :partial => "users/note", :locals => {:note => hour.most_recent_teacher_note} %>
+      <% else %>
+          (None)
+      <% end %>
+  </div>
+  <div class="bottom">
+      (<span class="see_more">
+         <a href="hours/<%= hour.id %>">View Details</a>
+      </span>)
+  </div>

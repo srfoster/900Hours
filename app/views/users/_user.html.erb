@@ -1,23 +1,34 @@
 <div class="personal_info">
     <%= render :partial => "profile_pic", :locals => {:user => user} %>
-    <div class="about_me">
-        <h1>About <%= user.first_name %></h1>
-
-        <p>Lorem ipsum dolor sit amet, consectetur 
-        adipiscing elit. Duis viverra tincidunt ipsum 
-        eget rutrum. Aenean eleifend nisi quis lorem 
-        posuere venenatis tincidunt orci feugiat. 
-        Donec orci nulla, dapibus ut scelerisque sed, 
-        ornare non metus. Aliquam venenatis eros et 
-        ipsum euismod scelerisque. Aenean augue, 
-        fermentum quis vestibulum ac, vehicula quis 
-        velit. Vivamus eget arcu sit amet lectus 
-        venenatis pulvinar vel gravida dolor. </p>
+    <%= render :partial => "about_me", :locals => {:user => user} %>
+    <div class="new_hour_button_container">
+        <button class="button" id="new_hour_button_<%= user.id %>" >Log Another Hour</button>
     </div>
-
     <div class="newsfeed">
       <% user.hours.reverse.each do |h| %>
-         <%= render :partial => "hour", :locals => {:hour => h} %>
+         <%= render :partial => "hour", :locals => {:hour => h, :content_partial => "users/hour_details"} %>
       <% end %>
     </div>
 </div>
+
+<script>
+  $(document).ready(function(){
+     $("#new_hour_button_<%= user.id %>").click(function(){
+       $("#new_hour_button_<%= user.id %>").replaceWith("<img src='<%= asset_path 'ajax-loader.gif' %>'/>")
+
+        $.ajax({
+          type: "POST",
+          url: "hours.json/",
+          data: {hour: {user_id: <%= user.id %>}},
+          success: function(data){
+             console.log(data);
+             var hour_id     = data.id;
+             window.location = "hours/"+hour_id;
+          },
+          error: function(data){
+             error_popup("You must add notes to the previous hour before logging a new hour.");
+          }
+        });
+     });
+  });
+</script>

@@ -1,20 +1,42 @@
 
-Donation experience:
- Don't hard code the student/teacher icons...
- Would be nice to have an easy (reusable) way of attaching tags/notes/pictures to things...
- Hour Details expand (popup?)
+
+ Viewing notes works but is aesthetically rough.
+   Better popup (don't use error popup...)
+   Also why is the page refreshing when the popup closes?
+
+ Also need to be able to add, delete, and (maybe) edit notes.
+
+ And what about picture notes, or video notes?
+
+ Make sure there's room when there are lots of donors...
+
+ Display total beneath chart?
+ Oh, and what if there are no donors for that hour?  What goes where the chart is?
+
+ How to teachers get attached to hours?
+   More immediately.  How do I attach teacher notes to Grace's hours?
+   Maybe a teacher gets added automatically when a "funded hour" is created by us.
+   But an hour that a student logs (a self-taught hour) has no teacher until the student logs some teacher notes?
+    Think about this a little more (especially the student being her own teacher).  It's going to confuse some people.
+
+
+ Image upload is failing part-way through sometimes
    List donors, notes, other information...
- Hour list expand
- Don't hard-code grace's image into the _user.html.erb file.  Need to have better profile picture capabilities.
+ Hour list expand (or link to complete profile...)
  Finish converting profile page mockup
- Interface adding notes 
  Create the rest of Grace's data...
 
  Security and access crontrol audit for all actions.
+ Make sure people can't upload things that are too big or too small
 
  Sign in/up/out
  Let people make profiles to apply for scholarships
 
- Profiles with hours and donors listed
  List the scholarshipable opportunities (maybe a 2nd link under Education Provided).
  Make mission statement link to mission page
+
+
+
+Data for Grace:
+
+["I fixed a picture in my website that wasn't positioned the way I wanted it to be.", "Downloaded Gimp. Used it to knock the background out of a picture.", "Grace downloaded Gimp and did some simple image manipulation to change the logo for her website.  This is good because I believe web design and web development should go hand-in-hand.", "Teacher note: Grace downloaded Gimp and did some simple image manipulation to change the logo for her website.  This is good because I believe web design and web development should go hand-in-hand.", "I found a new program that I can use to write code in at school.", "Used javascript functions to change the color of words.", "Learnred about refactoring: making your code shorter but having it do the same thing.", "Teacher: Grace started learning about javascript functions, which is a very complex topic.  This is the second time we've talked about functions before, and she's definitely understanding it better.  She was able to write her own function today with some help (siab).  I would guess we need to practice functions for about 4 more hours before she can start writing her own."] 

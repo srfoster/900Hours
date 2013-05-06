@@ -1,10 +1,107 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Profile:</b>
-  <%= @hour.profile_id %>
-</p>
+<div id="inner_main_container">
+    <%= render :partial => "users/hour", :locals => {:hour => @hour, :content_partial=>"hours/hour_details"
+} %>
 
 
-<%= link_to 'Edit', edit_hour_path(@hour) %> |
-<%= link_to 'Back', hours_path %>
+    <div class="hour_info_container">
+        <div class="hour_notes_container">
+        <div class="add_note_buttons">
+            <button class="button">+1 Student Note</button>
+            <button class="button">+1 Teacher Note</button>
+        </div>
+          <div class="hour_notes_list">
+              <% @hour.notes.reverse.each do |note| %> 
+                <div class="hour_note_list_item" >
+                    <img class="delete_icon" src="<%= asset_path 'delete_icon.png' %>"/>
+                    <img class="user_icon" src="<%= @hour.user.picture.url.gsub "https", "http" %>"/>
+                    <div class="note_text" note_id="<%= note.id %>">
+                        <%= render :partial => "users/note", :locals => {:note => note} %>
+                    </div>
+                    <div style="display:none">
+                       <div id="full_note_text_<%= note.id %>" class="full_note_text">
+                         <img class="user_icon" src="<%= @hour.user.picture.url.gsub "https", "http" %>"/>
+                         <%= note.note %>
+
+                         <img class="edit_icon" src="<%= asset_path 'edit_icon.png' %>"/>
+                       </div>
+                    </div>
+                </div>
+              <% end %>
+          </div>
+        </div>
+
+        <div class="chart_container">
+           <div class="connecting_line"></div>
+           <div id="chart"></div>
+           <div class="donor_list">
+           <% colors = ['#BC60E4',  '#FF8767', '#6393E4', '#B037E4' , '#FF6339', '#3C7AE4', '#7203A2', '#C92A00', '#053FA2'] %>
+           <% @hour.donor_summary.each_with_index do |summary, index| %>
+              <% current_color = colors[index % colors.length] %>
+              <% if User.find(summary[:id]).picture.url %> 
+                  <img src="<%= User.find(summary[:id]).picture.url.gsub("https", "http") %>"/>
+              <% else %>
+                  <img src="<%= asset_path 'question_mark.png' %>"/>
+              <% end %>
+            
+              <span class="donor_name" style="color:<%= current_color %>"><%= summary[:name] %></span><br/>
+           <% end %>
+           </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+<script>
+google.load('visualization', '1',
+          {'packages': ['table', 'map', 'corechart']});
+
+google.setOnLoadCallback(drawVisualization);
+
+
+function drawVisualization() {
+  // Create and populate the data table.
+  var data = google.visualization.arrayToDataTable([
+    ['',''],
+    <%= raw @hour.donor_summary.collect{|summary| "['" + summary[:name] +"'," + summary[:amount].to_s + "]"}.join(",") %>
+  ]); 
+
+  // Create and draw the visualization.
+  new google.visualization.PieChart(document.getElementById('chart')).
+    draw(data, {backgroundColor: 'black', chartArea: {width: '100%', height: '100%'}, legend: {position: 'none', textStyle: {color: 'white'}}, is3D: true, pieSliceText: 'value', colors: ['#BC60E4',  '#FF8767', '#6393E4', '#B037E4' , '#FF6339', '#3C7AE4', '#7203A2', '#C92A00', '#053FA2']});
+}
+</script>
+
+
+<script>
+  $(document).ready(function(){
+     $(".delete_icon").hover(function()
+     {
+         $(this).attr("src", "<%= asset_path 'delete_icon_highlight.png' %>");
+     },
+     function()
+     {
+         $(this).attr("src", "<%= asset_path 'delete_icon.png' %>");
+     });
+
+     $(".edit_icon").hover(function()
+     {
+         $(this).attr("src", "<%= asset_path 'edit_icon_highlight.png' %>");
+     },
+     function()
+     {
+         $(this).attr("src", "<%= asset_path 'edit_icon.png' %>");
+     });
+
+     $(".delete_icon").click(function(){
+         $(this).parent().fadeOut("slow");
+     });
+
+
+     $(".note_text").click(function(e){
+        var note_id = $(this).attr("note_id")
+        $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+note_id)});
+     });
+  });
+
+</script>

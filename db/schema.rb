@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503210813) do
+ActiveRecord::Schema.define(:version => 20130505155551) do
 
   create_table "dollars", :force => true do |t|
     t.integer  "donation_id"
@@ -63,6 +63,17 @@ ActiveRecord::Schema.define(:version => 20130503210813) do
   end
 
   add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
+
+  create_table "ownerships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "ownable_id"
+    t.string   "ownable_type"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "ownerships", ["ownable_id"], :name => "index_ownerships_on_ownable_id"
+  add_index "ownerships", ["user_id"], :name => "index_ownerships_on_user_id"
 
   create_table "paypal_logs", :force => true do |t|
     t.integer  "order_id"

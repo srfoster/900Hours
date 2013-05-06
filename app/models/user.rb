@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  include Note::Noteable
+  include Tag::Taggable
+
   attr_accessible :first_name, :last_name, :picture, :picture_cache
   has_many :orders
   has_many :donations
@@ -6,9 +9,18 @@ class User < ActiveRecord::Base
 
   has_many :taggings, :as => :taggable
   has_many :tags, :through => :taggings
+  has_many :notes, :as => :noteable
 
   mount_uploader :picture, PictureUploader
 
+  def about_me
+    notes.select{|n| n.has_tag?("About Me") }.sort_by{|n| n.created_at}.last
+  end
+
+  def set_about_me(text)
+    note = note(text, self)
+    note.tag("About Me")
+  end
 
   def full_name
     first_name + " " + last_name
@@ -36,6 +48,8 @@ class User < ActiveRecord::Base
     identity.provider = "facebook"
     identity.uid      = info["uid"]
     identity.save
+
+    set_about_me("")
 
     return user
   end

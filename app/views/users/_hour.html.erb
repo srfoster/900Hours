@@ -6,23 +6,9 @@
      #<%= hour.number_for_user %>
   </div>
   <div class="hour_details_donors">  
-     <%= pluralize hour.donors.size, "Donor" %>
+     <%= pluralize hour.donor_summary.size, "Donor" %>
   </div>
   <div class="hour_details_content">
-      <div class="hour_details_left">
-          <h3>Student Notes</h3>
-          <img class="icon" src="<%= asset_path 'grace_picture_square.png' %>"></img>
-          <%= render :partial => "note", :locals => {:note => hour.most_recent_student_note} %>
-      </div>
-      <div class="hour_details_right">
-          <h3>Teacher Notes</h3>
-          <img class="icon" src="<%= asset_path 'thoughtstem_logo.png' %>"></img>
-          <%= render :partial => "note", :locals => {:note => hour.most_recent_teacher_note} %>
-      </div>
-      <div class="bottom">
-          (<span class="see_more">
-             View Details 
-          </span>)
-      </div>
+     <%= render :partial => content_partial, :locals => {:hour => hour} %>
   </div>
 </div>

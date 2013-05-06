@@ -2,8 +2,8 @@
 <% if note.nil? or note.note == "" %>
   (None)
 <% elsif note.note.size < 60 %>
-  <span style="color: #8f00fd">"</span><%= note.note %><span style="color: #8f00fd">"</span>
+  "<%= note.note %>
 <% else %>
-  <span style="color: #8f00fd">"</span><%= note.note[0..59] %><span style="color: #8f00fd">..."</span>
+  "<%= note.note[0..59] %>..."
 <% end %>
 
