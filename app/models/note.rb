@@ -16,7 +16,8 @@ class Note < ActiveRecord::Base
     def note(text, user)
       note = Note.new
       note.note = text
-      notes << note
+      note.noteable = self
+      note.save!
       note.owned_by! user      
 
       return note

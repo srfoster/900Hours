@@ -27,21 +27,23 @@ class Hour < ActiveRecord::Base
   end
 
   def most_recent_student_note
-    notes.select{|n| n.has_tag?("Student") }.sort_by{|n| n.created_at}.last
+    notes.select{|n| n.has_tag?("Student") and !n.has_tag?("Deleted") }.sort_by{|n| n.created_at}.last
   end
 
   def most_recent_teacher_note
-    notes.select{|n| n.has_tag?("Teacher") }.sort_by{|n| n.created_at}.last
+    notes.select{|n| n.has_tag?("Teacher") and !n.has_tag?("Deleted") }.sort_by{|n| n.created_at}.last
   end
 
   def add_student_note(text, user)
     note = note(text, user)
     note.tag("Student")
+    note
   end
 
   def add_teacher_note(text, user)
     note = note(text, user)
     note.tag("Teacher")
+    note
   end
 
   def previous_hour
@@ -87,5 +89,9 @@ class Hour < ActiveRecord::Base
 
   def donor_summary
     donors.uniq.collect{|d| {:id => d.id, :name => d.full_name, :amount => dollars_from(d)}}
+  end
+
+  def notes
+    super.select{|n| !n.has_tag? "Deleted"}
   end
 end

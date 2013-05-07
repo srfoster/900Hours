@@ -1,0 +1,51 @@
+<div id="hour_note_list_item_<%= note.id %>" class="hour_note_list_item" >
+    <img note_id="<%= note.id %>" class="delete_icon" src="<%= asset_path 'delete_icon.png' %>"/>
+    <img class="user_icon" src="<%= note.owners.first.picture_url %>"/>
+    <div id="note_text_<%= note.id %>" class="note_text" note_id="<%= note.id %>">
+        <%= render :partial => "users/note.html.erb", :locals => {:note => note} %>
+    </div>
+    <div style="display:none">
+       <div id="full_note_text_<%= note.id %>" class="full_note_text">
+         <div id="show_note_text_<%= note.id %>">
+           <img class="user_icon" src="<%= note.owners.first.picture_url %>"/>
+           <div class="actual_text">
+               <%= note.note %>
+           </div>
+         </div>
+
+         <div id="edit_note_text_<%= note.id %>" class="edit_note_text" style="display:none">
+            <img class="user_icon" src="<%= note.owners.first.picture_url %>"/>
+           <textarea  rows="7" cols="50"><%= note.note %></textarea>
+         </div>
+
+         <div class="bottom">
+             <img class="edit_icon" src="<%= asset_path 'edit_icon.png' %>"/>
+         </div>
+       </div>
+
+
+    </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+      $("#full_note_text_<%= note.id %> .edit_icon").click(function(){
+        $("#show_note_text_<%= note.id %>").toggle();
+        $("#edit_note_text_<%= note.id %>").toggle();
+        $.ajax({
+           url: "/notes/<%= note.id %>", 
+           type: "PUT",
+           data: {note: {note: $("#edit_note_text_<%= note.id %> textarea").val()}},
+           success: function(data){
+               var curr = $("#edit_note_text_<%= note.id %> textarea").val()
+               $("#show_note_text_<%= note.id %> .actual_text").html(simpleFormat(curr));
+
+               var dots = "";
+               if(curr.length > 60){ dots = "..."; }
+
+               $("#note_text_<%= note.id %>").html("\""+curr.replace("\n"," ").substr(0,60)+dots+"\"");
+           }
+      });
+   });
+  });
+</script>

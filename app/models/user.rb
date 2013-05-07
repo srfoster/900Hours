@@ -53,4 +53,12 @@ class User < ActiveRecord::Base
 
     return user
   end
+
+  def picture_url
+    if picture.url
+      return picture.url.gsub "https", "http"
+    else
+      return '/assets/question_mark.png'
+    end
+  end
 end

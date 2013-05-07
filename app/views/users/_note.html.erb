@@ -1,8 +1,8 @@
 
 <% if note.nil? or note.note == "" %>
-  (None)
+  (No text yet.)
 <% elsif note.note.size < 60 %>
-  "<%= note.note %>
+  "<%= note.note %>"
 <% else %>
   "<%= note.note[0..59] %>..."
 <% end %>

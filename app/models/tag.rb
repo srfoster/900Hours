@@ -1,6 +1,8 @@
 class Tag < ActiveRecord::Base
   attr_accessible :name
 
+  validates :name, :uniqueness => true
+
 
   module Taggable
    

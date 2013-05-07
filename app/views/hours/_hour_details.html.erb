@@ -1,12 +1,12 @@
   <div class="hour_details_left">
       <h3>Student:</h3>
-      <img class="icon" src="<%= hour.user.picture.url.gsub "https", "http" %>"></img>
+      <img class="icon" src="<%= hour.user.picture_url %>"></img>
       <%= hour.user.first_name %>
   </div>
   <div class="hour_details_right">
       <h3>Teacher:</h3>
       <% if hour.teacher %>
-          <img class="icon" src="<%= hour.teacher.picture.url.gsub "https", "http" %>"></img>
+          <img class="icon" src="<%= hour.teacher.picture_url %>"></img>
           <%= hour.teacher.first_name %>
       <% else %>
           (Teacher has not logged notes yet.) 
