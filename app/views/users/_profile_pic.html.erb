@@ -4,7 +4,7 @@
         <%= user.hours.size == 1 ? "hour" : "hours" %>
     </div>
     <div class="name"><%= user.first_name %></div>
-    <img class="photo" src="<%= user.picture.url.gsub "https", "http" %>"></img>
+    <img class="photo" src="<%= user.picture_url %>"></img>
     <img class="edit_icon" src="<%= asset_path 'edit_icon.png' %>"></img>
 </div>
 
@@ -46,7 +46,7 @@ $(function () {
           $("#picture_upload_popup_<%= user.id %> form").show();
           $.colorbox.close();
           $.get("users/<%= user.id %>", function(data){
-            url = data.picture.url.replace("https", "http");
+            url = data.picture_url;
             $("#profile_picture_<%= user.id %> .photo").attr("src", url);
           });
         },

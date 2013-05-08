@@ -17,6 +17,7 @@
   width: 469px;
   height: 500px;
   float: left;
+  position: relative;
 }
 
 .hour_info_container{
@@ -75,20 +76,67 @@
 }
 
 .donor_list{
-  position: relative;
-  top:140px; 
-  left:30px; 
+  position: absolute;
   float: left;
+  width: 200px;
+  height: 300px;
+  overflow: hidden;
+  top: 110px;
+  left: 250px;
+}
+
+.donor_list_container{
+  width: 200px;
+  height: 237px;
+  overflow: hidden;
+  position: absolute;
+  top: 20px;
+}
+
+.down_button{
+  position: absolute; 
+  top: 270px;
+  width: 20px;
+  height: 20px;
+  background-image: url(<%= asset_path 'down_arrow.png' %>);
+  margin-left: 70px;
+  cursor: pointer;
+}
+
+.up_button{
+  width: 20px;
+  height: 20px;
+  background-image: url(<%= asset_path 'up_arrow.png' %>);
+  margin-left: 70px;
+  cursor: pointer;
+}
+
+.total{
+  font-size: 30pt;
+  position: absolute;
+  top:300px;
+  left: 45px; 
+}
+
+.donor_list_item{
+  width: 185px;
+  float:left;
+  margin-bottom: 2px;
+  position: relative;
 }
 
 .donor_list img{
   width: 30px;
   border: 1px solid white;
+  float:left;
+  margin-right: 3px;
 }
 
 .donor_name{
-  position: relative;
-  top: -10px;
+  width: 150px;
+  height: 32px;
+  overflow: hidden;
+  float:left;
 }
 
 .connecting_line{

@@ -19,19 +19,26 @@
         <div class="chart_container">
            <div class="connecting_line"></div>
            <div id="chart"></div>
+           <div class="total">$20</div>
            <div class="donor_list">
-           <% colors = ['#BC60E4',  '#FF8767', '#6393E4', '#B037E4' , '#FF6339', '#3C7AE4', '#7203A2', '#C92A00', '#053FA2'] %>
-           <% @hour.donor_summary.each_with_index do |summary, index| %>
-              <% current_color = colors[index % colors.length] %>
-              <% if User.find(summary[:id]).picture.url %> 
-                  <img src="<%= User.find(summary[:id]).picture.url.gsub("https", "http") %>"/>
-              <% else %>
-                  <img src="<%= asset_path 'question_mark.png' %>"/>
-              <% end %>
-            
-              <span class="donor_name" style="color:<%= current_color %>"><%= summary[:name] %></span><br/>
-           <% end %>
-           </div>
+               <div style="display:none;" class="up_button"></div>
+                   <div class="donor_list_container">
+                   <% colors = ['#BC60E4',  '#FF8767', '#6393E4', '#B037E4' , '#FF6339', '#3C7AE4', '#7203A2', '#C92A00', '#053FA2'] %>
+                   <% @hour.donor_summary.each_with_index do |summary, index| %>
+                      <div class="donor_list_item">
+                          <% current_color = colors[index % colors.length] %>
+                          <% if User.find(summary[:id]).picture.url %> 
+                              <img src="<%= User.find(summary[:id]).picture_url %>"/>
+                          <% else %>
+                              <img src="<%= asset_path 'question_mark.png' %>"/>
+                          <% end %>
+                        
+                          <div class="donor_name"><a style="color:<%= current_color %>" href="/users/<%= summary[:id] %>"><%= summary[:name] %> ($<%= summary[:amount] %>)</a></div>
+                      </div>
+                   <% end %>
+                   </div>
+                   <div class="down_button" style="display: <%= @hour.donor_summary.size > 7 ? "block" : "none" %>"></div>
+              </div>
         </div>
     </div>
 </div>
@@ -60,7 +67,27 @@ function drawVisualization() {
 
 
 <script>
+  var list_offset = 0;
+  var scroll_amount = 34;
+
   $(document).ready(function(){
+
+     var i = $(".donor_list_item").first();
+     scroll_amount = i.height() + parseInt(i.css("margin-bottom").replace("px", ""));
+
+     $(".up_button").click(function(){
+        list_offset += scroll_amount;
+        $(".donor_list_item").animate({"top":list_offset+"px"})
+        fix_buttons();
+     });
+     
+     $(".down_button").click(function(){
+        list_offset -= scroll_amount;
+        $(".donor_list_item").animate({"top":list_offset+"px"})
+        fix_buttons();
+     });
+
+
      $("#add_student_note").click(function(){
         $.post("/notes.json?hour_id=<%= @hour.id %>&note_type=Student", function(data){
             var partial = $(data.partial)
@@ -120,6 +147,18 @@ function drawVisualization() {
         $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+note_id)});
      });
 
+  }
+
+  function fix_buttons(){
+    if(list_offset >= 0)
+      $(".up_button").hide();    
+    else
+      $(".up_button").show();    
+
+    if((list_offset * -1 / scroll_amount) >= <%= @hour.donor_summary.size %> )
+      $(".down_button").hide();    
+    else
+      $(".down_button").show();    
   }
 
 </script>
