@@ -1,0 +1,21 @@
+
+Stuff I've decided on and built into the app (but which I might forget).
+
+
+Stakeholders:
+  Students
+  Teachers
+  Donors
+  Administrators
+
+
+Application Business process:
+    Donations are made into the main pool
+
+    A teacher "applies" to be a teacher
+    A student "applies" to be a student
+    We (internally) put students on some kind of schedule -- based on their needs, location, experience, etc.
+    We contact teachers in their area and set up the sessions, curriculum, etc.  Or we set up remote sessions.
+    We create the student hours in advance.  We attach the teacher to the hour (via Ownership tagged with "Teacher" -- see teacher!() API call).  We wire up the dollars from the donations to the hour.
+      We wait for teacher and student to log their notes, link to their code/videos, etc.
+    Meanwhile, students can log their own hours as long as it appears to be beneficial.  We'll have someone internally review the student's progress probably.  Remote mentoring...

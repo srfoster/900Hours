@@ -2,11 +2,26 @@
     <%= render :partial => "profile_pic", :locals => {:user => user} %>
     <%= render :partial => "about_me", :locals => {:user => user} %>
     <div class="new_hour_button_container">
-        <button class="button" id="new_hour_button_<%= user.id %>" >Log Another Hour</button>
+        <% if user.id == @current_user %>
+            <% if user.is_approved_student? %>
+                <button class="button" id="new_hour_button_<%= user.id %>" >+1 Hour</button>
+            <% elsif user.is_approved_teacher? %>
+                Your teacher request was approved.
+            <% elsif !user.has_pending_student_requests? and !user.has_pending_teacher_requests? %>
+                <%= form_for ApplicationRequest.new do |form| %>
+                    <%= form.submit "Apply As a Student", :class => "button" %>
+                    <%= form.submit "Apply As a Teacher", :class => "button" %>
+                <% end %>
+            <% elsif user.has_pending_student_requests? %>
+                We'll contact you in a few days.<br/>  Your student request is under review (<%= link_to 'click here', user.pending_request, method: :delete %> to cancel it)
+            <% elsif user.has_pending_teacher_requests? %>
+                We'll contact you in a few days.<br/>  Your teacher request is under review (<%= link_to 'click here', user.pending_request, method: :delete %> to cancel it)
+            <% end %>
+        <% end %>
     </div>
     <div class="newsfeed">
-      <% user.hours.reverse.each do |h| %>
-         <%= render :partial => "hour", :locals => {:hour => h, :content_partial => "users/hour_details"} %>
+      <% user.all_hours.reverse.each do |h| %>
+         <%= render :partial => "hour", :locals => {:hour => h, :content_partial => "/users/hour_details"} %>
       <% end %>
     </div>
 </div>
@@ -23,7 +38,7 @@
           success: function(data){
              console.log(data);
              var hour_id     = data.id;
-             window.location = "hours/"+hour_id;
+             window.location = "/hours/"+hour_id;
           },
           error: function(data){
              error_popup("You must add notes to the previous hour before logging a new hour.");

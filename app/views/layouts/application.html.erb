@@ -53,6 +53,17 @@
       }
       return str;
     }
+
+    $(document).ready(function(){
+        $(".edit_icon").hover(function()
+        {
+            $(this).attr("src", "<%= asset_path 'edit_icon_highlight.png' %>");
+        },
+        function()
+        {
+            $(this).attr("src", "<%= asset_path 'edit_icon.png' %>");
+        });
+    });
   </script>
   
 </body>

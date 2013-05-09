@@ -7,10 +7,18 @@ class Tag < ActiveRecord::Base
   module Taggable
    
     def tag(name)
+      if has_tag? name
+          return
+      end
+
       tagging = Tagging.new
       tagging.taggable = self
       tagging.tag = Tag.find_by_name(name)
       tagging.save
+    end
+
+    def untag(name)
+      taggings.select{|t| t.tag.name == name}.each{|t| t.destroy}
     end
 
     def has_tag?(name)

@@ -1,0 +1,63 @@
+<div class="chart_container">
+   <div class="connecting_line"></div>
+   <div id="chart"></div>
+   <div class="total">$<%= @hour.donor_summary.inject(0){|f,s| f + s[:amount] } %></div>
+   <div class="donor_list">
+       <div style="display:none;" class="up_button"></div>
+           <div class="donor_list_container">
+           <% colors = ['#BC60E4',  '#FF8767', '#6393E4', '#B037E4' , '#FF6339', '#3C7AE4', '#7203A2', '#C92A00', '#053FA2'] %>
+           <% @hour.donor_summary.each_with_index do |summary, index| %>
+              <div class="donor_list_item">
+                  <% current_color = colors[index % colors.length] %>
+                  <% if User.find(summary[:id]).picture.url %> 
+                      <img src="<%= User.find(summary[:id]).picture_url %>"/>
+                  <% else %>
+                      <img src="<%= asset_path 'question_mark.png' %>"/>
+                  <% end %>
+                
+                  <div class="donor_name"><a style="color:<%= current_color %>" href="/users/<%= summary[:id] %>"><%= summary[:name] %> ($<%= summary[:amount] %>)</a></div>
+              </div>
+           <% end %>
+           </div>
+           <div class="down_button" style="display: <%= @hour.donor_summary.size > 7 ? "block" : "none" %>"></div>
+      </div>
+</div>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script>
+google.load('visualization', '1',
+          {'packages': ['table', 'map', 'corechart']});
+
+google.setOnLoadCallback(drawVisualization);
+
+
+function drawVisualization() {
+  // Create and populate the data table.
+  var data = google.visualization.arrayToDataTable([
+    ['',''],
+    <%= raw @hour.donor_summary.collect{|summary| "['" + summary[:name] +"'," + summary[:amount].to_s + "]"}.join(",") %>
+  ]); 
+
+  // Create and draw the visualization.
+  new google.visualization.PieChart(document.getElementById('chart')).
+    draw(data, {backgroundColor: 'black', chartArea: {width: '100%', height: '100%'}, legend: {position: 'none', textStyle: {color: 'white'}}, is3D: true, pieSliceText: 'value', colors: ['#BC60E4',  '#FF8767', '#6393E4', '#B037E4' , '#FF6339', '#3C7AE4', '#7203A2', '#C92A00', '#053FA2']});
+}
+</script>
+<script>
+
+     var i = $(".donor_list_item").first();
+     scroll_amount = i.height() + parseInt(i.css("margin-bottom").replace("px", ""));
+
+     $(".up_button").click(function(){
+        list_offset += scroll_amount;
+        $(".donor_list_item").animate({"top":list_offset+"px"})
+        fix_buttons();
+     });
+     
+     $(".down_button").click(function(){
+        list_offset -= scroll_amount;
+        $(".donor_list_item").animate({"top":list_offset+"px"})
+        fix_buttons();
+     });
+
+
+</script>

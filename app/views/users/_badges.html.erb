@@ -1,0 +1,15 @@
+<div class="badges">
+
+
+  <% if user.is_approved_teacher? %>
+      <div class="badge">
+          Hours taught: <%= user.taught_hours.size %><br/>
+      </div>
+  <% end %>
+
+  <% if user.is_donor? %>
+      <div class="badge">
+          Dollars given: $<%= user.donations.inject(0){|f,s| f + s.amount} %><br/>
+      </div>
+  <% end %>
+</div>

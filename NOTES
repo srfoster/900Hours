@@ -1,30 +1,25 @@
- User profiles
-   Make sure they make sense for:
-     Students
-     Teachers
-     Donors
 
- How to teachers get attached to hours?
-   More immediately.  How do I attach teacher notes to Grace's hours?
-   Maybe a teacher gets added automatically when a "funded hour" is created by us.
-   But an hour that a student logs (a self-taught hour) has no teacher until the student logs some teacher notes?
-    Think about this a little more (especially the student being her own teacher).  It's going to confuse some people.
+ Sign in/up/out
+
+ Enforce that there can't be more dollars records attached to a donation than the donation amount.
+
+ Get rid of unnecessary scaffold files (edit, new, etc.)
 
 
  Image upload is failing part-way through sometimes
    List donors, notes, other information...
- Hour list expand (or link to complete profile...)
- Finish converting profile page mockup
+
  Create the rest of Grace's data...
 
  Security and access crontrol audit for all actions.
  Make sure people can't upload things that are too big or too small
+ Make sure people can't save data that's ridiculously long.
 
- Sign in/up/out
  Let people make profiles to apply for scholarships
 
- List the scholarshipable opportunities (maybe a 2nd link under Education Provided).
- Make mission statement link to mission page
+ List the scholarshipable opportunities (maybe a 2nd link under Education Provided).   Or opportunities to get hours.
+
+ Make mission statement link to mission page.  Or maybe it should be an explanation page...
 
 
 

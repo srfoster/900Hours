@@ -86,3 +86,11 @@
   width: 500px;
   text-align: left; 
 }
+
+a{
+  color: #8f00fd;
+}
+
+a:visited{
+  color: #8f00fd;
+}

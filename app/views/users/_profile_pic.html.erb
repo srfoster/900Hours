@@ -21,16 +21,6 @@
 <script>
   $(document).ready(function(){
     $("#profile_picture_<%= user.id %>").colorbox({opacity: .5, inline:true,  href: $("#picture_upload_popup_<%= user.id %>")});
-
-
-    $("#profile_picture_<%= user.id %>").hover(
-        function(){
-          $("#profile_picture_<%= user.id %> .edit_icon").show();
-        },
-        function(){
-          $("#profile_picture_<%= user.id %> .edit_icon").hide();
-        }
-    );
   });
 
 $(function () {

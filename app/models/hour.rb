@@ -1,10 +1,14 @@
 class Hour < ActiveRecord::Base
   include Tag::Taggable
   include Note::Noteable
+  include Ownership::Ownable
 
   has_many :taggings, :as => :taggable
   has_many :tags, :through => :taggings
   has_many :notes, :as => :noteable
+
+  has_many :ownerships, :as => :ownable
+  has_many :owners, :through => :ownerships
 
   attr_accessible :user_id
 
@@ -78,9 +82,16 @@ class Hour < ActiveRecord::Base
   end
 
   def teacher
-    return nil if most_recent_teacher_note.nil?
+    teachers.first
+  end
 
-    return most_recent_teacher_note.owners.first #Presumably there is only one, right?
+  def teachers
+    ownerships.select{|o| o.has_tag? "Teacher"}.collect{|o| o.owner}
+  end
+
+  def teacher!(user)
+    ownership = owned_by! user
+    ownership.tag("Teacher")
   end
 
   def dollars_from(user)

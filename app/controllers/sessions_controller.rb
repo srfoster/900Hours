@@ -5,7 +5,11 @@ class SessionsController < ApplicationController
     info = request.env["omniauth.auth"]
 
     if info["provider"] == "facebook"
-        user = User.find_by_facebook_info(info) || User.create_from_facebook_info(info)
+        user = User.find_by_facebook_info(info)
+        
+        if user.nil?
+            user = User.create_from_facebook_info(info)
+        end
 
         session[:user] = user.id
     end

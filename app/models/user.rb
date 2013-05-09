@@ -7,9 +7,13 @@ class User < ActiveRecord::Base
   has_many :donations
   has_many :hours
 
+  has_many :ownerships
+
   has_many :taggings, :as => :taggable
   has_many :tags, :through => :taggings
   has_many :notes, :as => :noteable
+
+  has_many :application_requests
 
   mount_uploader :picture, PictureUploader
 
@@ -49,7 +53,7 @@ class User < ActiveRecord::Base
     identity.uid      = info["uid"]
     identity.save
 
-    set_about_me("")
+    user.set_about_me("")
 
     return user
   end
@@ -61,4 +65,61 @@ class User < ActiveRecord::Base
       return '/assets/question_mark.png'
     end
   end
+
+  def is_donor?
+    !donated_hours.blank?
+  end
+
+  def donated_hours
+    donations.collect{|d| d.dollars}.flatten.collect{|d| d.hour}.uniq 
+  end
+
+  def taught_hours
+    owned_notes.select{|o| o.noteable_type == "Hour"}.collect{|o| o.noteable }.uniq
+  end
+
+  def all_hours
+    (hours + donated_hours + taught_hours).uniq
+  end
+
+  def note_ownerships
+    ownerships.select{|o| o.ownable_type == "Note" }
+  end
+
+  def owned_notes
+    note_ownerships.collect{|o| o.ownable} - [nil]
+  end
+
+
+  #application requests
+  
+  def is_approved_student?
+    !application_requests.select{|a| a.is_approved? and a.has_tag?("Student") }.blank?
+  end
+
+  def is_approved_teacher?
+    !application_requests.select{|a| a.is_approved? and a.has_tag?("Teacher") }.blank?
+  end
+
+  def has_pending_student_requests?
+    !application_requests.select{|a| a.is_pending? and a.has_tag?("Student") }.blank?
+  end
+
+  def has_pending_teacher_requests?
+    !application_requests.select{|a| a.is_pending? and a.has_tag?("Teacher") }.blank?
+  end
+
+  def has_pending_requests?
+    !pending_requests.blank?
+  end
+
+
+  def pending_requests
+    application_requests.select{|a| a.is_pending?}
+  end
+
+  def pending_request
+    pending_requests.first
+  end
+
 end

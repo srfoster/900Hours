@@ -1,6 +1,7 @@
 <div class="about_me" id="about_me_<%= user.id %>">
-    <img class="edit_icon" src="<%= asset_path 'edit_icon.png' %>"></img>
     <h1>About <%= user.first_name %></h1>
+
+    <%= render :partial => "users/badges", :locals => {:user => user} %>
 
     <div class="about_me_text">
         <% if user.about_me %>
@@ -11,41 +12,36 @@
     </div>
     <div class="about_me_edit">
         <% if user.about_me %>
-            <textarea rows="15" cols="48"><%= user.about_me.note %></textarea>
+            <textarea rows="13" cols="48"><%= user.about_me.note %></textarea>
         <% else %>
-            <textarea rows="15" cols="48"></textarea>
+            <textarea rows="13" cols="48"></textarea>
         <% end %>
     </div>
+    <img class="edit_icon" src="<%= asset_path 'edit_icon.png' %>"></img>
 </div>
 
 <script>
   $(document).ready(function(){
-    $("#about_me_<%= user.id %> h1").hover(
-        function(){
-          $("#about_me_<%= user.id %> .edit_icon").show();
-        },
-        function(){
-          $("#about_me_<%= user.id %> .edit_icon").hide();
-        }
-    );
 
-
-    $("#about_me_<%= user.id %> h1").click(function(){
+    $("#about_me_<%= user.id %> .edit_icon").click(function(){
        $("#about_me_<%= user.id %> .about_me_text").toggle();
        $("#about_me_<%= user.id %> .about_me_edit").toggle();
+       set_about_me();
     });
 
     $("#about_me_<%= user.id %> .about_me_edit textarea").blur(
         function(){
            $("#about_me_<%= user.id %> .about_me_text").show();
            $("#about_me_<%= user.id %> .about_me_edit").hide();
+           set_about_me();
         }
     );
 
+   });
 
-    $("#about_me_<%= user.id %> .about_me_edit textarea").keydown(function(){
+    function set_about_me(){
         $.ajax({
-           url: "notes/<%= user.about_me.id %>", 
+           url: "/notes/<%= user.about_me.id %>", 
            type: "PUT",
            data: {note: {note: $("#about_me_<%= user.id %> .about_me_edit textarea").val()}},
            success: function(data){
@@ -53,7 +49,5 @@
                $("#about_me_<%= user.id %> .about_me_text").html(simpleFormat(curr));
            }
        }); 
-   });
-
-   });
+   }
 </script>

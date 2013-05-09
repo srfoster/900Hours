@@ -5,15 +5,17 @@
   </div>
   <div class="hour_details_right">
       <h3>Teacher Notes</h3>
-      <% if hour.teacher %>
-          <img class="icon" src="<%= hour.teacher.picture_url %>"></img>
+      <% if hour.most_recent_teacher_note %>
+          <img class="icon" src="<%= hour.most_recent_teacher_note.owners.first.picture_url %>"></img>
           <%= render :partial => "users/note", :locals => {:note => hour.most_recent_teacher_note} %>
+      <% elsif hour.teacher %>
+          <img class="icon" src="<%= hour.teacher.picture_url %>"></img>
       <% else %>
           (None)
       <% end %>
   </div>
   <div class="bottom">
       (<span class="see_more">
-         <a href="hours/<%= hour.id %>">View Details</a>
+         <a href="/hours/<%= hour.id %>">View Details</a>
       </span>)
   </div>

@@ -6,6 +6,7 @@ RailsApp::Application.routes.draw do
   resources :orders
   resources :users
   resources :notes
+  resources :application_requests
 
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: redirect('/')

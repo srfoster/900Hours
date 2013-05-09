@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507174705) do
+ActiveRecord::Schema.define(:version => 20130509181511) do
+
+  create_table "application_requests", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "application_requests", ["user_id"], :name => "index_application_requests_on_user_id"
 
   create_table "dollars", :force => true do |t|
     t.integer  "donation_id"

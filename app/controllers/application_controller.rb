@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
   before_filter :save_location
+  before_filter :current_user
 
   private
 
@@ -11,6 +12,10 @@ class ApplicationController < ActionController::Base
     end
 
     def save_location
+      if request.xhr?
+          return
+      end
+
       session[:previous_url] = session[:current_url]
       session[:current_url] = request.fullpath
     end
