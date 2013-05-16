@@ -3,4 +3,10 @@ class Dollar < ActiveRecord::Base
 
   belongs_to :donation
   belongs_to :hour
+
+  before_create :check_donation
+
+  def check_donation
+    return !(donation.unallocated_dollars <= 0)
+  end
 end

@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Profile</th>
+    <th>User</th>
     <th></th>
     <th></th>
     <th></th>
@@ -10,7 +10,7 @@
 
 <% @hours.each do |hour| %>
   <tr>
-    <td><%= hour.profile_id %></td>
+    <td><%= hour.user_id %></td>
     <td><%= link_to 'Show', hour %></td>
     <td><%= link_to 'Edit', edit_hour_path(hour) %></td>
     <td><%= link_to 'Destroy', hour, method: :delete, data: { confirm: 'Are you sure?' } %></td>

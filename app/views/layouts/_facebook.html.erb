@@ -21,7 +21,7 @@ $(document).ready(function() {
 
     // Assign onclick listeners to login/logout buttons
           
-    $('#sign_in').click(function(e){
+    $('.sign_in').click(function(e){
         e.preventDefault();
         FB.login(function(response){
             if(response.authResponse){

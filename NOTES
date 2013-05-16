@@ -1,18 +1,26 @@
 
- Sign in/up/out
 
- Enforce that there can't be more dollars records attached to a donation than the donation amount.
 
- Get rid of unnecessary scaffold files (edit, new, etc.)
+
+ 
+ It would be cool if people could share those infographics on facebook with a single button click.
+   Good thing for an intern to do.
+
+ There are 12 dudes in each row in the People chart.
 
 
  Image upload is failing part-way through sometimes
-   List donors, notes, other information...
+
+ Link from Grace's picture on the homepage.
+
+ 
+ Should we put in place some infrastructure for an "invitation-only" or "beta phase" launch?
+
 
  Create the rest of Grace's data...
 
  Security and access crontrol audit for all actions.
- Make sure people can't upload things that are too big or too small
+ Make sure people can't upload images that are too big or too small
  Make sure people can't save data that's ridiculously long.
 
  Let people make profiles to apply for scholarships

@@ -18,4 +18,7 @@ class WelcomeController < ApplicationController
       end
     end
 
+    def mission
+      render :template => "welcome/mission"
+    end
 end

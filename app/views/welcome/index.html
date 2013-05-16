@@ -83,7 +83,7 @@
         <% if !@is_logged_in %>
         <h3>Step 1: Don't be anonymous!</h3>
         <p>Sign in with Facebook.</p>
-        <img id="sign_in" src="<%= asset_path 'facebook_64.png' %>"/>
+        <img id="sign_in" class="sign_in" src="<%= asset_path 'facebook_64.png' %>"/>
         <% else %>
         <p>Hi, <%= @user.full_name %>!</p>
         <p>Click below to donate.  And be prepared for a transparent process.</p>

@@ -1,0 +1,177 @@
+Info graphic?
+
+Data driven...  Charts...
+
+What's the strongest argument?  Fear?  Personal opportunity?  Humanity?  National economy?  Education system reform?
+
+Put the code.org video on the site if we can?
+
+
+
+Next chart:
+
+Gender inequity (AP test) -- 
+  and mention in the accompanying text that according to the Taulbee survey, less than 12% of Bachelor's degrees were earned by women
+
+
+Pay differential between software engineers vs high school teachers vs middle school teachers...
+   (The point being that schools are fucked...)
+
+
+Time to learn different languages...  Or instruments.  Or sports.  Or games.
+
+   What are we doing here, though?  I guess we're trying to justify and/or get people excited about the 900 hour number.
+   I'd like to give people a reason for the number, and I'd like to hint at what you can expect after 900 hours of ed.
+   But the problem is coming up with a good metaphorical field (since the data doesn't exist for CS).
+   And even if you have the data for some analogous field, people may well challenge the metaphor (CS isn't like languages...)  (Or CS isn't like chess...)
+   Ideally, we'd like to be able to invoke some kind of general principle (like the 10,000 hour rule).
+      (You're a 10th of an expert?)
+   We could make the claim that we're redefining (and raising the bar) for "literacy" -- defining literacy as 900 hours. 
+      And then we could ask What is literacy?  And how long does it take to acquire it?
+
+
+
+
+
+Put barchart of # of job openings per year, # of cs grads, # of cs AP test
+
+
+   New jobs STEM                   : 1.22 million
+    http://www.bls.gov/emp/ep_table_102.htm
+   New jobs CS                     : 758,800 (over 10 years)
+    http://www.bls.gov/ooh/about/projections-overview.htm
+   CS Degrees (2011)     
+    Bachelor's Degrees    37,784  (I guess MS used this number...)
+    Associate's Degrees   29,148  
+    https://webcaspar.nsf.gov
+   High school AP test             :  21139
+     http://www.csta.acm.org/Research/sub/Projects/ResearchFiles/APCS_States_By_Gender.pdf
+
+The BLS does some lumping too...  And is this where everyone gets their 2.1 million stat?
+"Professional, scientific, and technical services. Employment in professional, scientific, and technical services is projected to grow by 29 percent, adding about 2.1 million new jobs by 2020. Employment in computer systems design and related services is expected to increase by 47 percent, driven by growing demand for sophisticated computer network and mobile technologies. Employment in management, scientific, and technical consulting services is anticipated to expand, at 58 percent. Demand for these services will be spurred by businesses’ continued need for advice on planning and logistics, the implementation of new technologies, and compliance with workplace safety, environmental, and employment regulations. Combined, the two industries—computer systems design and related services and management, scientific, and technical consulting services—will account for more than half of all new jobs in professional, scientific, and technical services."
+
+
+Economic situation now.
+  Jobs not filled.
+  And it's worse if you consider non-tech jobs that require/benefit from tech skills
+  Number of professionals in industry who don't have a degree
+
+Amount of the world you don't understand if you don't know computing.
+
+Projection into the future is worse.
+
+Schools are screwed
+  AP tests
+  Pay differential between teachers and professionals
+
+We have to do something...
+
+
+AP exam stuff
+http://www.csta.acm.org/Research/sub/Projects/ResearchFiles/APCS_States_By_Gender.pdf
+
+
+
+Ugh.  Why do people count Master's and Ph.Ds?  If they do that, they'll need to subtract out the # of BS grads who elect to go to graduate school instead of industry...  But they don't.
+
+
+
+The Economic Argument
+
+    From (http://www.bls.gov/)
+
+    Software Developers:
+
+    2010 Median Pay             $90,530 per year 
+                                $43.52 per hour
+    Entry-Level                 Education Bachelor’s degree
+    Number of Jobs, 2010        913,100
+    Job Outlook, 2010-20        30% (Much faster than average)
+    Employment Change,
+    2010-20                     270,900
+
+    But we're not going to fill all the jobs:
+
+    And degrees not generated fast enough:
+    http://www.computerworld.com/s/article/9226004/Computer_science_enrollments_rise_again_by_10_
+    "For the U.S. computer science departments that responded to the CRA survey in 2010 and 2011, enrollments in computer science programs increased 9.6%. The number of bachelor's degrees awarded in computer science programs was 12.9% for those schools that reported this year and last."
+    "Of the master's degrees awarded in computer science, 75.4% of the degrees were awarded to males and 56.7% were awarded to nonresident aliens.
+    According to the survey, the percentage of women among people who earned bachelor's degrees in computer science decreased, falling from 13.8% in 2009-10 to 11.7% in 2010-11."
+
+
+
+    
+
+
+
+    http://www.cra.org/govaffairs/blog/wp-content/uploads/2012/04/CS_Degree_and_Enrollment_Trends_2010-11.pdf
+
+
+    http://www.bizjournals.com/denver/print-edition/2012/01/27/number-of-computer-grads-on-rise-after.html?page=all
+    Crappy pedagogy:
+    "Software startups are more likely to need a handful jack-of-all-trade veterans — ones experienced enough to avoid common pitfalls and who can self-manage their work — to build their core technology. It’s often when tech companies grow larger that they have jobs for less-experienced computer programmers and engineers."
+    Andre Durand, CEO and founder of Denver-based Ping Identity, said his company has grown large enough — 220 employees — to have entry-level positions for the first time. It’s an exciting prospect for the company, which manages and secures online access to cloud computing services for large businesses.
+
+
+   Microsoft analyses the situation, but there may be problems with the report:
+
+    http://www.epi.org/publication/pm195-stem-labor-shortages-microsoft-report-distorts/
+
+
+    "For example, 47 percent of web developers do not have a four-year college degree (O*NET 2012a), let alone a degree in CS, and 41 percent of computer systems analysts do not have a four-year college degree (O*NET 2012b).
+Thus, calculating the number of students graduating with a bachelor’s degree in CS each year is not a methodologically credible way to measure the future supply of potential workers in these occupations, and it is illogical for Microsoft to hinge its claim of a labor shortage on this single statistic. Workers in computer-related occupations come from a variety of educational backgrounds, and always have."
+
+    And rebuttals to the problems: http://immigrationimpact.com/2013/05/01/why-there-are-not-enough-stem-workers-in-the-u-s-labor-market/
+
+    "In 2010, for example, San Francisco and San Jose had 25 and 19 job openings for every computer graduate, respectively, and in Austin, Des Moines, Washington, Charleston, Seattle, and Charlotte, that gap was nearly as great. Moreover, a 2011 report describes 3,200 unfilled positions at Siemens, and Microsoft reported over 6,000 unfilled job openings in the United States in 2012, over half of which are for researchers, developers, and engineers."
+
+
+    Anecdotally: I have a lot of needs here at ThoughtSTEM -- and most of them, I wouldn't be able to trust a recent graduate to be able to fill.
+
+
+    https://www.computerworld.com/s/article/9234328/If_tech_is_so_important_why_are_IT_wages_flat_
+    "In its report, Microsoft says that the U.S. economy each year is producing 120,000 additional computing jobs that require at least a bachelor's degree, but only about 40,000 computer science bachelor's degrees are awarded annually."
+
+
+    Costa argues that CS grads aren't the only ones filling open positions.  He claims this is a flaw in MS's argument.  But is it really?  Do we WANT to live in a world where 60 of programmers don't have a degree in their field?
+
+
+    http://techland.time.com/2012/07/16/can-we-fix-computer-science-education-in-america/
+    "The only serious computing class available to many students is AP computer science and it’s not very popular. Part of the problem is that the course is primarily focused on Java programming.
+“Many kids come to high school without any experience in computer science, especially in lower resource schools,” says Jan Cuny of the National Science Foundation. “They’re not really ready to take a year-long course in Java.”
+Even if students wanted to dive into programming, the course is only offered in 10% of American high schools. The result? According to the College Board, in 2010, only 14,517 students took the AP computer science test, compared to the 194,784 students that took the AP calculus test and 109,609 students that took the AP statistics test."
+
+
+    According to the Bureau of Labor Statistics, the mean annual wage for a high school teacher is $56,760. Software developers, on the other hand, make an average of $92,080.
+
+
+“Unless you are going to have this knowledge be only accessible to a very narrow strata — which is mostly white and Asian males from comfortable backgrounds — it’s going to have to be part of our education system,” says Margolis. “We feel that having it in the schools and having a strong program is important if you’re going to democratize computer science knowledge.”
+
+Read more: http://techland.time.com/2012/07/16/can-we-fix-computer-science-education-in-america/#ixzz2SvZmRqwT
+
+http://tealsk12.org/
+  Some great graphs about CS AP exams.
+In 2010, only 19,390 students in the United States out of some 14 million took the Computer Science Advanced Placement test. This number represents only 0.6% of all AP tests taken that year. This at a time when five of the top ten fastest growing jobs will be in a computer related field and two of the top three top bachelors salaries are in computer science and engineering.
+
+Personal Argument
+
+    http://logos.cs.uic.edu/recruit/Best_Jobs_in_America_.jpg
+
+    7 of these "best jobs in America" are in IT
+
+
+
+
+The Human Argument
+
+
+
+
+We want to reduce the number of clicks it takes for you to start changing the world.
+
+
+
+
+
+
+
