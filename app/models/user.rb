@@ -122,4 +122,8 @@ class User < ActiveRecord::Base
     pending_requests.first
   end
 
+  def is_admin?
+    has_tag? "Admin"
+  end
+
 end

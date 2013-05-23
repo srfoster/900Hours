@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130509181511) do
+ActiveRecord::Schema.define(:version => 20130523214955) do
 
   create_table "application_requests", :force => true do |t|
     t.integer  "user_id"
