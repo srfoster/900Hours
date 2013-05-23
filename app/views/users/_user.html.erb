@@ -17,7 +17,7 @@
             <% elsif user.has_pending_teacher_requests? %>
                 We'll contact you in a few days.<br/>  Your teacher request is under review (<%= link_to 'click here', user.pending_request, method: :delete %> to cancel it)
             <% end %>
-        <% elsif User.find(@current_user).is_admin? %>
+        <% elsif @current_user and User.find(@current_user).is_admin? %>
                 <button class="button" id="new_hour_button_<%= user.id %>" >+1 Hour</button>
         <% end %>
     </div>
