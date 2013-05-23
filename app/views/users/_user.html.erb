@@ -35,7 +35,7 @@
 
         $.ajax({
           type: "POST",
-          url: "hours.json/",
+          url: "/hours.json/",
           data: {hour: {user_id: <%= user.id %>}},
           success: function(data){
              console.log(data);
