@@ -61,7 +61,7 @@ class Hour < ActiveRecord::Base
   end 
 
   def is_complete?
-    !most_recent_student_note.nil? and !most_recent_teacher_note.nil?
+    !most_recent_student_note.nil? #and !most_recent_teacher_note.nil?
   end
 
   
@@ -85,13 +85,13 @@ class Hour < ActiveRecord::Base
     teachers.first
   end
 
-  def teachers
-    ownerships.select{|o| o.has_tag? "Teacher"}.collect{|o| o.owner}
-  end
-
   def teacher!(user)
     ownership = owned_by! user
     ownership.tag("Teacher")
+  end
+
+  def teachers
+    ownerships.select{|o| o.has_tag? "Teacher"}.collect{|o| o.owner}
   end
 
   def dollars_from(user)
