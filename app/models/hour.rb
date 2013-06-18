@@ -19,7 +19,7 @@ class Hour < ActiveRecord::Base
   before_create :most_recent_hour_is_complete 
 
   def number_for_user
-    user.hours.index(self) + 1
+    user.hours.sort_by{|h| h.created_at}.index(self) + 1
   end
 
   def donors
