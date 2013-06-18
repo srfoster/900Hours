@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
   end
 
   def all_hours
-    (hours + donated_hours + taught_hours).uniq
+    (hours + donated_hours + taught_hours).uniq.sort_by{|h| h.created_at}
   end
 
   def note_ownerships
