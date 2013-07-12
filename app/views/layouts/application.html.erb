@@ -15,6 +15,10 @@
   <%= render 'layouts/facebook' %>
 
   <div id="top_bar">
+	
+	<!-- Beta Tag -->
+	<div style="margin-left: 195px; padding-top: 50px; font-size: 20px; color: red; line-height: 25px; float: left;">BETA</div>
+	
     <ul type="none" id="nav_links"> 
         <li><%= link_to_unless_current "Home", "/" %></li>
         <% if @current_user %>
