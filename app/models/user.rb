@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_provider_info(info)
-    identity = Identity.find_by_uid(info["uid"])
+    identity = Identity.find_by_uid(info["uid"].to_s)
     if identity.nil?
         return nil
     else
