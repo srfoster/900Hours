@@ -2,7 +2,7 @@
     <%= render :partial => "profile_pic", :locals => {:user => user} %>
     <%= render :partial => "about_me", :locals => {:user => user} %>
     <div class="new_hour_button_container">
-        <% if user.id == current_user.id %>
+        <% if current_user && user.id == current_user.id %>
             <% if user.is_approved_student? %>
                 <button class="button" id="new_hour_button_<%= user.id %>" >+1 Hour</button>
             <% elsif user.is_approved_teacher? %>
