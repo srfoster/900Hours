@@ -1,7 +1,7 @@
 <div id="hour_note_list_item_<%= note.id %>" class="hour_note_list_item" >
     <img note_id="<%= note.id %>" class="delete_icon" src="<%= asset_path 'delete_icon.png' %>"/>
     <img class="user_icon" src="<%= note.owners.first.picture_url %>"/>
-    <div id="note_text_<%= note.id %>" class="note_text" note_id="<%= note.id %>">
+    <div id="note_text_<%= note.id %>" class="note_text" style="word-wrap: break-word;" note_id="<%= note.id %>">
         <%= render :partial => "users/note.html.erb", :locals => {:note => note} %>
     </div>
     <div style="display:none">
