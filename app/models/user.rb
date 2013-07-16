@@ -30,7 +30,16 @@ class User < ActiveRecord::Base
     first_name + " " + last_name
   end
 
-  def self.find_by_facebook_info(info)
+  def self.find_or_create_from_provider_info(info)
+    u = find_by_provider_info(info)
+    if u
+        return u
+    end
+
+    create_from_provider_info(info) 
+  end
+
+  def self.find_by_provider_info(info)
     identity = Identity.find_by_uid(info["uid"])
     if identity.nil?
         return nil
@@ -39,7 +48,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.create_from_facebook_info(info)
+  def self.create_from_provider_info(info)
     user = User.new
 
     user.first_name = info["info"]["first_name"]
@@ -49,7 +58,7 @@ class User < ActiveRecord::Base
 
     identity = Identity.new
     identity.user_id  = user.id
-    identity.provider = "facebook"
+    identity.provider = "thoughtstem"
     identity.uid      = info["uid"]
     identity.save
 
