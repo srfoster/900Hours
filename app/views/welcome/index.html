@@ -62,7 +62,7 @@
                  Grace
               <h3>
               <p>
-                 71 hours
+                 <%= User.find_by_first_name_and_last_name("Grace","Manning").all_hours.size %>  hours
               </p>
           </div>
 

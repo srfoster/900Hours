@@ -1,0 +1,6 @@
+<p id="redirect_message" data-site_url="<%= "#{ENV['THOUGHTSTEM_SITE']}users/logout" %>" style="text-align:center">You are now being logged out. <%= link_to "Click here", "#{ENV['THOUGHTSTEM_SITE']}users/logout" %> if you are not redirected in 5 seconds.</p>
+<script>
+var delay = 1000; //Your delay in milliseconds
+ setTimeout(function(){ window.location = $('#redirect_message').data('site_url'); }, delay);
+</script>
+

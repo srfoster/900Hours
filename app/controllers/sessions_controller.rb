@@ -1,34 +1,30 @@
-class SessionsController < ApplicationController
-
+class SessionsController < ApplicationController              
+  def new
+    redirect_to "/auth/thoughtstem"                           
+  end                                                         
+  
   def create
+    auth = request.env["omniauth.auth"]                       
+    session[:access_token] = auth["credentials"]["token"]     
+    redirect_path = session[:return_to]
+    session[:return_to] = nil
+    redirect_to redirect_path || root_url
 
-    info = request.env["omniauth.auth"]
+    @current_user = User.find_or_create_from_provider_info(auth)
 
-    redirect_url = previous_url
+    session[:user_id] = @current_user.id
+  end
 
-    if info["provider"] == "facebook"
-        user = User.find_by_facebook_info(info)
-        
-        if user.nil?
-            user = User.create_from_facebook_info(info)
-            redirect_url = "/users/#{user.id}"
-        end
-
-        session[:user] = user.id
-    end
-
-    redirect_to redirect_url
+  def show
+    logger.info("we're back from the SSO site. redirect to root")
+    redirect_to root_url
   end
 
   def destroy
-    session[:user] = nil
-    redirect_to previous_url
-  end
-  
-  private
-  
-    def previous_url
-      session[:previous_url] || root_path
+    if !access_token or !current_remote_user
+       redirect_to "/"
     end
-
+    session[:access_token] = nil
+    session[:user_id] = nil
+  end
 end
