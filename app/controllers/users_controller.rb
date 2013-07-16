@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
     def index
-      if current_user.nil? or !is_admin(current_user) 
-        study_taggings = Tagging.find_all_by_tag_id(Tag.find_by_name("case_study"))
-        @users = study_taggings.collect{|t| t.taggable }
-      end
+      study_taggings = Tagging.find_all_by_tag_id(Tag.find_by_name("case_study"))
+      @users = study_taggings.collect{|t| t.taggable }
     end
 
     def update

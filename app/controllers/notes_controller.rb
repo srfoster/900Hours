@@ -19,7 +19,7 @@ class NotesController < ApplicationController
     hour = Hour.find(params[:hour_id])
 
     if params[:note_type] == "Teacher"
-       user = User.find(current_user)
+       user = current_user
        @note = hour.add_teacher_note("", user)
     else
        user = hour.user
