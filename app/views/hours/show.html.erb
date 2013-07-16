@@ -30,15 +30,15 @@
   var scroll_amount = 34;
 
   $(document).ready(function(){
-
      $("#add_student_note").click(function(){
         $.post("/notes.json?hour_id=<%= @hour.id %>&note_type=Student", function(data){
             var partial = $(data.partial)
             partial.hide().prependTo(".hour_notes_list");
             $("#hour_note_list_item_"+data.note.id).fadeIn();
 
-            setupCrudFunctions();
-        });         
+			//Setup and automatically open the edit comment window
+            setupCrudFunctions(data.note.id);			
+        }); 
      });
 
      $("#add_teacher_note").click(function(){
@@ -47,14 +47,20 @@
             partial.hide().prependTo(".hour_notes_list");
             $("#hour_note_list_item_"+data.note.id).fadeIn();
 
-            setupCrudFunctions();
+			//Setup and automatically open the edit comment window
+            setupCrudFunctions(data.note.id);
         });         
      });
 
      setupCrudFunctions();
   });
 
-  function setupCrudFunctions(){
+  function setupCrudFunctions(noteID){
+     //If a note ID was passed, automatically open the commment window
+	 if(typeof noteID != 'undefined') {
+       $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+noteID)});
+	 }
+  
      $(".delete_icon").hover(function()
      {
         $(this).attr("src", "<%= asset_path 'delete_icon_highlight.png' %>");
@@ -77,7 +83,7 @@
      });
 
 
-     $(".note_text").click(function(e){
+     $(".note_text").click(function(e) {
         var note_id = $(this).attr("note_id")
         $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+note_id)});
      });
