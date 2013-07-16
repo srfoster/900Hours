@@ -9,7 +9,7 @@
         <h2>
           Dollars Raised
         </h2>
-        <div class="content_item_content">
+        <div id="content_box_1" class="content_item_content">
           <div class="left_column">
               <h3>
                   <span id="countup" from="<%= [0,(@number_of_dollars - 100)].max %>" to="<%= @number_of_dollars %>"></span>
@@ -201,4 +201,16 @@ $("#donation_input").keydown(function(event) {
 	<script> 
 		top.dg.closeFlow(); 
 	</script>
+	<script>
+ $(document).ready(function(){
 
+	$("#content_item_2").click(function() {
+		document.location.href='mission.html';
+	});
+	 $("#content_item_3").click(function() {
+                document.location.href='users.html';
+        });
+
+});
+
+	</script>

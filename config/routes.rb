@@ -1,4 +1,6 @@
 RailsApp::Application.routes.draw do
+
+  resource :timezone
   resources :dollars
   resources :hours
   resources :donations

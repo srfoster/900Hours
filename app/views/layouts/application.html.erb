@@ -73,6 +73,13 @@
             $(this).attr("src", "<%= asset_path 'edit_icon.png' %>");
         });
     });
+ 
+    var offset = new Date().getTimezoneOffset();
+    $.ajax({
+      url: "/timezone",
+      type: "post",
+      data: {offset: offset}
+	});
   </script>
   
 </body>

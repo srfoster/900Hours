@@ -1,14 +1,20 @@
 <div class="hour_details">
   <div class="hour_details_days_ago">  
-    <%= pluralize hour.days_ago, "days" %> ago
+
+	<% if session[:tz] %>
+	    <%= (hour.created_at - session[:tz].minutes).strftime("%A %b %d %Y") %>
+	<%end%> 
+<!-- pluralize hour.days_ago, "days" > ago -->
   </div>
   <div class="hour_details_number">  
      #<%= hour.number_for_user %>
   </div>
   <div class="hour_details_donors">  
-     <%= pluralize hour.donor_summary.size, "Donor" %>
+    <%= pluralize hour.donor_summary.size, "Donor" %>
   </div>
   <div class="hour_details_content">
-     <%= render :partial => content_partial, :locals => {:hour => hour} %>
+    <%= render :partial => content_partial, :locals => {:hour => hour} %>
   </div>
 </div>
+
+
