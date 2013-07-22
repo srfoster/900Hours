@@ -4,9 +4,15 @@
 
 
     <div class="hour_info_container">
-        <div class="hour_notes_container">
+        
+	<div id ="undo_delete" hidden="true"><p>Successfully Deteted! </p>
+        	<p id ="undo_text">undo</p>
+
+ 	</div><!-- close undo_delete  -->
+
+	<div class="hour_notes_container">
         <div class="add_note_buttons">
-		<h1 id="hello">HELLO!</h1>
+		
             <button id="add_student_note" class="button">+1 Student Note</button>
             <button id="add_teacher_note" class="button">+1 Teacher Note</button>
         </div>
@@ -29,9 +35,11 @@
 <script>
   var list_offset = 0;
   var scroll_amount = 34;
+  var note_id = -1;
 
   $(document).ready(function(){
      $("#add_student_note").click(function(){
+	//$("#undo_delete").fadeOut("slow");
         $.post("/notes.json?hour_id=<%= @hour.id %>&note_type=Student", function(data){
             var partial = $(data.partial)
             partial.hide().prependTo(".hour_notes_list");
@@ -43,6 +51,7 @@
      });
 
      $("#add_teacher_note").click(function(){
+	//$("#undo_delete").fadeOut("slow");
         $.post("/notes.json?hour_id=<%= @hour.id %>&note_type=Teacher", function(data){
             var partial = $(data.partial)
             partial.hide().prependTo(".hour_notes_list");
@@ -76,16 +85,28 @@
          $(this).parent().fadeOut("slow");
 
          note_id = $(this).attr("note_id")
-
          $.ajax({
            url: "/notes/"+note_id,
            type: "DELETE"
          })
+	$("#undo_delete").fadeIn("slow");
      });
 
-
+     $("#undo_text").click(function() {
+	$(".delete_icon").parent().fadeIn("slow");
+	$.ajax({
+	  url: "/notes/"+note_id,
+	  type:"PUT",
+	  data: {untag:["Deleted"]     
+	        }
+	
+	})
+   	note_id = -1;
+	$("#undo_delete").fadeOut("slow");
+     });	
+    
      $(".note_text").click(function(e) {
-        var note_id = $(this).attr("note_id")
+        note_id = $(this).attr("note_id")
         $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+note_id)});
      });
 
