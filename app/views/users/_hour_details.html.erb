@@ -6,7 +6,7 @@
   <div class="hour_details_right">
       <h3>Teacher Notes</h3>
       <% if hour.most_recent_teacher_note %>
-          <img class="icon" src="<%= hour.most_recent_teacher_note.owners.first.picture_url %>"></img>
+          <img class="icon" <%if hour.most_recent_teacher_note.owners.first == nil%> src ="/assets/question_mark.png" <%else %> src="<%hour.most_recent_teacher_note.owners.first.picture_url %>" <%end%>></img>
           <%= render :partial => "users/note", :locals => {:note => hour.most_recent_teacher_note} %>
       <% elsif hour.teacher %>
           <img class="icon" src="<%= hour.teacher.picture_url %>"></img>

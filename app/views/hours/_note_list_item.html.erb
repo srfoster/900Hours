@@ -1,6 +1,6 @@
 <div id="hour_note_list_item_<%= note.id %>" class="hour_note_list_item" >
     <img note_id="<%= note.id %>" class="delete_icon" src="<%= asset_path 'delete_icon.png' %>"/>
-    <img class="user_icon" src="<%= note.owners.first.picture_url %>"/>
+    <img class="user_icon"<% if note.owners.first == nil %> src="/assets/question_mark.png" <%else%> src="<%= note.owners.first.picture_url %>" <%end%>/>
     <div id="note_text_<%= note.id %>" class="note_text" style="word-wrap: break-word;" note_id="<%= note.id %>">
         <%= render :partial => "users/note.html.erb", :locals => {:note => note} %>
     </div>
@@ -8,7 +8,7 @@
        <div id="full_note_text_<%= note.id %>" class="full_note_text">
          <div id="show_note_text_<%= note.id %>">
            <div style="float: left; width: 20%;">
-				<img class="user_icon" src="<%= note.owners.first.picture_url %>"/>
+				<img class="user_icon" <%if note.owners.first == nil %> src="/assets/question_mark.png" <%else%> src="<%= note.owners.first.picture_url %>" <%end%>/>
 		   </div>
 		   <div style="float: left; margin-left: 10px; width: 75%;">
 				<style type="text/css">
@@ -26,7 +26,7 @@
 
          <div id="edit_note_text_<%= note.id %>" class="edit_note_text" style="display:none">
             <div style="float: left; width: 20%;">
-				<img class="user_icon" src="<%= note.owners.first.picture_url %>"/>
+				<img class="user_icon" <% if note.owners.first == nil %> src="/assets/question_mark.png" <%else%> src="<%= note.owners.first.picture_url %>" <%end%>/>
 			</div>
 			<div style="float: left; margin-left: 10px; width: 75%;">
 				<h1 style="color: #8f00fd; font-size: 14px; margin: 0px; margin-bottom: 2px; padding: 0px;">Notes</h1>
