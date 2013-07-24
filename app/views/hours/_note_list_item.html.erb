@@ -8,8 +8,8 @@
        <div id="full_note_text_<%= note.id %>" class="full_note_text">
          <div id="show_note_text_<%= note.id %>">
            <img class="user_icon" src="<%= note.owners.first.picture_url %>"/>
-           <div class="actual_text">
-               <%= note.note %>
+   		<div class="actual_text">
+      		 <%= note.note %>
            </div>
          </div>
 
@@ -32,6 +32,15 @@
       $("#full_note_text_<%= note.id %> .edit_icon").click(function(){
         $("#show_note_text_<%= note.id %>").toggle();
         $("#edit_note_text_<%= note.id %>").toggle();
+	var visibleEdit = $("#show_note_text_<%= note.id %>").is(":visible");
+	/*if (visibleEdit) {
+		var curr = $("#edit_note_text_<%= note.id %> textarea").val();
+		 $("#show_note_text_<%= note.id %> .actual_text").html(simpleFormat(curr))
+		showEmbeddedContent();
+	}
+	$.colorbox.resize();*/
+
+
         $.ajax({
            url: "/notes/<%= note.id %>", 
            type: "PUT",
@@ -39,13 +48,19 @@
            success: function(data){
                var curr = $("#edit_note_text_<%= note.id %> textarea").val()
                $("#show_note_text_<%= note.id %> .actual_text").html(simpleFormat(curr));
+		
+		if(visibleEdit) {
+			showEmbeddedContent();
+		}
+		$.colorbox.resize();		
 
                var dots = "";
                if(curr.length > 60){ dots = "..."; }
-
                $("#note_text_<%= note.id %>").html("\""+curr.replace("\n"," ").substr(0,60)+dots+"\"");
            }
       });
    });
   });
+
+
 </script>

@@ -2,7 +2,6 @@
     <%= render :partial => "users/hour", :locals => {:hour => @hour, :content_partial=>"hours/hour_details"
 } %>
 
-
     <div class="hour_info_container">
         <div class="hour_notes_container">
         <div class="add_note_buttons">
@@ -11,7 +10,7 @@
         </div>
           <div class="hour_notes_list">
               <% @hour.notes.reverse.each do |note| %> 
-                  <%= render :partial => "note_list_item", :locals => {:hour => @hour, :note => note} %>
+     		<%= render :partial => "note_list_item", :locals => {:hour => @hour, :note => note} %>             
               <% end %>
           </div>
         </div>
@@ -28,9 +27,36 @@
 <script>
   var list_offset = 0;
   var scroll_amount = 34;
+  var note_id;
+
+function youtube_parser(text, entireURL){
+	text = simpleFormat(text);
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    var allWords = text.split(/[ ,<>]+/);
+    var urlIndicies = new Array();
+    for(var i=0; i<allWords.length; i++) {
+        var match = allWords[i].match(regExp);
+        if (match) urlIndicies.push((entireURL) ? allWords[i] : match[7].substring(0,11));
+    }
+    return urlIndicies;
+}
+
+function showEmbeddedContent() {
+	//originalText = $("#show_note_text_"+note_id+" .actual_text").html(simpleFormat($("#show_note_text_"+note_id+" .actual_text").html()));
+	originalText = $("#show_note_text_"+note_id+" .actual_text").html();
+        var text = originalText;
+	//alert("original text: "+originalText);
+         var urlIndicies = youtube_parser(text, false);
+         var fullURLs = youtube_parser(text, true);
+	//alert("fullURLs.length: "+fullURLs.length);
+         for(var i=0; i<fullURLs.length; i++) {
+                text = text.replace(fullURLs[i], '<br><iframe width="520" height="315" src="//www.youtube.com/embed/'+urlIndicies[i]+'" frameborder="0" allowfullscreen></iframe><br>');
+        }
+	//alert("text is:  "+text);
+        $("#show_note_text_"+note_id+" .actual_text").html(text);
+}
 
   $(document).ready(function(){
-
      $("#add_student_note").click(function(){
         $.post("/notes.json?hour_id=<%= @hour.id %>&note_type=Student", function(data){
             var partial = $(data.partial)
@@ -55,6 +81,7 @@
   });
 
   function setupCrudFunctions(){
+     var originalText;
      $(".delete_icon").hover(function()
      {
         $(this).attr("src", "<%= asset_path 'delete_icon_highlight.png' %>");
@@ -78,10 +105,25 @@
 
 
      $(".note_text").click(function(e){
-        var note_id = $(this).attr("note_id")
-        $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+note_id)});
-     });
+	$("#show_note_text_"+note_id).show();
+	$("#edit_note_text_"+note_id).hide();
 
+	note_id = $(this).attr("note_id");
+	showEmbeddedContent();
+        $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+note_id), onClosed:function() {
+		$.ajax({
+          	 url: "/notes/"+note_id, 
+           	type: "PUT",
+           	data: {note: {note: $("#edit_note_text_"+note_id+" textarea").val()}},
+           	success: function(data){
+			var curr = $("#edit_note_text_"+note_id+" textarea").val();
+                $("#show_note_text_"+note_id+" .actual_text").html(simpleFormat(curr));
+                var dots = "";
+               if(curr.length > 60){ dots = "..."; }
+               $("#note_text_"+note_id).html("\""+curr.replace("\n"," ").substr(0,60)+dots+"\"");
+	}});
+     }});
+    });
   }
 
   function fix_buttons(){
