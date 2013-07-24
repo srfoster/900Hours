@@ -12,25 +12,25 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <%= render 'layouts/facebook' %>
 
-  <div id="top_bar">
+  <!-- Added min-width so the bar doesn't collapse on itself -->
+  <div id="top_bar" style="min-width: 1200px;">
 	
 	<!-- Beta Tag -->
 	<div style="margin-left: 195px; padding-top: 50px; font-size: 20px; color: red; line-height: 25px; float: left;">BETA</div>
 	
     <ul type="none" id="nav_links"> 
         <li><%= link_to_unless_current "Home", "/" %></li>
-        <% if @current_user %>
-          <li><%= link_to_unless_current "My Profile", "/users/#{@current_user}" %></li>
+        <% if current_user %>
+          <li><%= link_to_unless_current "My Profile", "/users/#{current_user.id}" %></li>
         <% end %>
         <li><%= link_to_unless_current "Mission", "/mission" %></li>
         <li><%= link_to_unless_current "Case Studies", "/users" %></li>
         <li><%= link_to_unless_current "Scholarships", "/contact_us" %></li>
-        <% if @current_user %>
+        <% if current_user %>
           <li><%= link_to_unless_current "Sign out", "/signout" %></li>
         <% else %>
-          <li class="sign_in" style="color:white; cursor:pointer;">Sign in</li>
+          <li><%= link_to_unless_current "Sign in", "/session/new" %></li>
         <% end %>
     </ul>
   </div>
@@ -39,7 +39,7 @@
       <%= yield %>
   </div>
 
-  <img id="logo" src="<%= asset_path 'logo.png' %>"></img>
+  <a href="/"><img id="logo" src="<%= asset_path 'logo.png' %>"></img></a>
 
   <div style="display:none">
     <div id="error_popup">
@@ -74,6 +74,13 @@
             $(this).attr("src", "<%= asset_path 'edit_icon.png' %>");
         });
     });
+ 
+    var offset = new Date().getTimezoneOffset();
+    $.ajax({
+      url: "/timezone",
+      type: "post",
+      data: {offset: offset}
+	});
   </script>
   
 </body>

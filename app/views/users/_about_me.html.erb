@@ -41,7 +41,7 @@
 
     function set_about_me(){
         $.ajax({
-           url: "/notes/<%= user.about_me.id %>", 
+           url: "/notes/<%= user.about_me %>", 
            type: "PUT",
            data: {note: {note: $("#about_me_<%= user.id %> .about_me_edit textarea").val()}},
            success: function(data){

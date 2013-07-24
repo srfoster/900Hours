@@ -1,8 +1,18 @@
 class NotesController < ApplicationController
-  def update 
+  def update
+    untagValue = params[:untag]
+
     @note = Note.find(params[:id])
     @note.update_attributes(params[:note]) 
+
+    if untagValue
+	untagValue.each do |x| 
+	    @note.untag(x)
+	end
+    end
+
     render :nothing => true
+
   end
 
   def show
@@ -16,10 +26,14 @@ class NotesController < ApplicationController
   end
 
   def create
+	puts "***********Inside Create******"
     hour = Hour.find(params[:hour_id])
 
     if params[:note_type] == "Teacher"
-       user = User.find(current_user)
+	puts "**********Found Teacher***********"
+       user = current_user
+	puts user
+	puts "**********************"
        @note = hour.add_teacher_note("", user)
     else
        user = hour.user

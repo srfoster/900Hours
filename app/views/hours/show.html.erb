@@ -3,8 +3,15 @@
 } %>
 
     <div class="hour_info_container">
-        <div class="hour_notes_container">
+        
+	<div id ="undo_delete" hidden="true"><p>Successfully Deteted! </p>
+        	<p id ="undo_text">undo</p>
+
+ 	</div><!-- close undo_delete  -->
+
+	<div class="hour_notes_container">
         <div class="add_note_buttons">
+		
             <button id="add_student_note" class="button">+1 Student Note</button>
             <button id="add_teacher_note" class="button">+1 Teacher Note</button>
         </div>
@@ -27,6 +34,7 @@
 <script>
   var list_offset = 0;
   var scroll_amount = 34;
+<<<<<<< HEAD
   var note_id;
 
 function youtube_parser(text, entireURL){
@@ -55,33 +63,49 @@ function showEmbeddedContent() {
 	//alert("text is:  "+text);
         $("#show_note_text_"+note_id+" .actual_text").html(text);
 }
+=======
+  var note_id = -1;
+>>>>>>> f405f513c04aed04a5fbcbc4cadfe9a63f034cb9
 
   $(document).ready(function(){
      $("#add_student_note").click(function(){
+	//$("#undo_delete").fadeOut("slow");
         $.post("/notes.json?hour_id=<%= @hour.id %>&note_type=Student", function(data){
             var partial = $(data.partial)
             partial.hide().prependTo(".hour_notes_list");
             $("#hour_note_list_item_"+data.note.id).fadeIn();
 
-            setupCrudFunctions();
-        });         
+			//Setup and automatically open the edit comment window
+            setupCrudFunctions(data.note.id);			
+        }); 
      });
 
      $("#add_teacher_note").click(function(){
+	//$("#undo_delete").fadeOut("slow");
         $.post("/notes.json?hour_id=<%= @hour.id %>&note_type=Teacher", function(data){
             var partial = $(data.partial)
             partial.hide().prependTo(".hour_notes_list");
             $("#hour_note_list_item_"+data.note.id).fadeIn();
 
-            setupCrudFunctions();
+			//Setup and automatically open the edit comment window
+            setupCrudFunctions(data.note.id);
         });         
      });
 
      setupCrudFunctions();
   });
 
+<<<<<<< HEAD
   function setupCrudFunctions(){
      var originalText;
+=======
+  function setupCrudFunctions(noteID){
+     //If a note ID was passed, automatically open the commment window
+	 if(typeof noteID != 'undefined') {
+       $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+noteID)});
+	 }
+  
+>>>>>>> f405f513c04aed04a5fbcbc4cadfe9a63f034cb9
      $(".delete_icon").hover(function()
      {
         $(this).attr("src", "<%= asset_path 'delete_icon_highlight.png' %>");
@@ -96,13 +120,14 @@ function showEmbeddedContent() {
          $(this).parent().fadeOut("slow");
 
          note_id = $(this).attr("note_id")
-
          $.ajax({
            url: "/notes/"+note_id,
            type: "DELETE"
          })
+	$("#undo_delete").fadeIn("slow");
      });
 
+<<<<<<< HEAD
 
      $(".note_text").click(function(e){
 	$("#show_note_text_"+note_id).show();
@@ -124,6 +149,26 @@ function showEmbeddedContent() {
 	}});
      }});
     });
+=======
+     $("#undo_text").click(function() {
+	$(".delete_icon").parent().fadeIn("slow");
+	$.ajax({
+	  url: "/notes/"+note_id,
+	  type:"PUT",
+	  data: {untag:["Deleted"]     
+	        }
+	
+	})
+   	note_id = -1;
+	$("#undo_delete").fadeOut("slow");
+     });	
+    
+     $(".note_text").click(function(e) {
+        note_id = $(this).attr("note_id")
+        $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+note_id)});
+     });
+
+>>>>>>> f405f513c04aed04a5fbcbc4cadfe9a63f034cb9
   }
 
   function fix_buttons(){

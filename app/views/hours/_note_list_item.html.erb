@@ -1,21 +1,44 @@
 <div id="hour_note_list_item_<%= note.id %>" class="hour_note_list_item" >
     <img note_id="<%= note.id %>" class="delete_icon" src="<%= asset_path 'delete_icon.png' %>"/>
-    <img class="user_icon" src="<%= note.owners.first.picture_url %>"/>
-    <div id="note_text_<%= note.id %>" class="note_text" note_id="<%= note.id %>">
+    <img class="user_icon"<% if note.owners.first == nil %> src="/assets/question_mark.png" <%else%> src="<%= note.owners.first.picture_url %>" <%end%>/>
+    <div id="note_text_<%= note.id %>" class="note_text" style="word-wrap: break-word;" note_id="<%= note.id %>">
         <%= render :partial => "users/note.html.erb", :locals => {:note => note} %>
     </div>
     <div style="display:none">
        <div id="full_note_text_<%= note.id %>" class="full_note_text">
          <div id="show_note_text_<%= note.id %>">
+<<<<<<< HEAD
            <img class="user_icon" src="<%= note.owners.first.picture_url %>"/>
    		<div class="actual_text">
       		 <%= note.note %>
            </div>
+=======
+           <div style="float: left; width: 20%;">
+				<img class="user_icon" <%if note.owners.first == nil %> src="/assets/question_mark.png" <%else%> src="<%= note.owners.first.picture_url %>" <%end%>/>
+		   </div>
+		   <div style="float: left; margin-left: 10px; width: 75%;">
+				<style type="text/css">
+					.actual_text p {
+					padding: 0px;
+					margin: 0px;
+					}
+				</style>
+			   <h1 style="color: #8f00fd; font-size: 14px; margin: 0px; margin-bottom: 2px; padding: 0px;">Notes</h1>
+			   <div class="actual_text" style="float: left; height: 78px; width: 100%; overflow: auto; word-wrap: break-word; ">
+				   <%= note.note %>
+			   </div>
+		   </div>
+>>>>>>> f405f513c04aed04a5fbcbc4cadfe9a63f034cb9
          </div>
 
          <div id="edit_note_text_<%= note.id %>" class="edit_note_text" style="display:none">
-            <img class="user_icon" src="<%= note.owners.first.picture_url %>"/>
-           <textarea  rows="7" cols="50"><%= note.note %></textarea>
+            <div style="float: left; width: 20%;">
+				<img class="user_icon" <% if note.owners.first == nil %> src="/assets/question_mark.png" <%else%> src="<%= note.owners.first.picture_url %>" <%end%>/>
+			</div>
+			<div style="float: left; margin-left: 10px; width: 75%;">
+				<h1 style="color: #8f00fd; font-size: 14px; margin: 0px; margin-bottom: 2px; padding: 0px;">Notes</h1>
+				<textarea style="resize: none; height: 78px; width: 100%;"><%= note.note %></textarea>
+			</div>	
          </div>
 
          <div class="bottom">
@@ -32,6 +55,7 @@
       $("#full_note_text_<%= note.id %> .edit_icon").click(function(){
         $("#show_note_text_<%= note.id %>").toggle();
         $("#edit_note_text_<%= note.id %>").toggle();
+<<<<<<< HEAD
 	var visibleEdit = $("#show_note_text_<%= note.id %>").is(":visible");
 	/*if (visibleEdit) {
 		var curr = $("#edit_note_text_<%= note.id %> textarea").val();
@@ -41,6 +65,10 @@
 	$.colorbox.resize();*/
 
 
+=======
+		//Resize the colorbox after displaying new blocks
+		$.colorbox.resize(); 
+>>>>>>> f405f513c04aed04a5fbcbc4cadfe9a63f034cb9
         $.ajax({
            url: "/notes/<%= note.id %>", 
            type: "PUT",

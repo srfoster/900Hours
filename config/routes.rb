@@ -1,4 +1,6 @@
 RailsApp::Application.routes.draw do
+
+  resource :timezone
   resources :dollars
   resources :hours
   resources :donations
@@ -7,11 +9,13 @@ RailsApp::Application.routes.draw do
   resources :users
   resources :notes
   resources :application_requests
-
-  match 'auth/:provider/callback', to: 'sessions#create'
+  resource  :session                                           
+                                                                
+  match "auth/thoughtstem/callback", to: "sessions#create" 
   match 'auth/failure', to: redirect('/')
-  match 'signout', to: 'sessions#destroy', as: 'signout'
+
   match 'mission', to: 'welcome#mission'
+  match 'signout', to: 'sessions#destroy'
 
 
   # The priority is based upon order of creation:
