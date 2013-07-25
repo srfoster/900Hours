@@ -7,12 +7,6 @@
     <div style="display:none">
        <div id="full_note_text_<%= note.id %>" class="full_note_text">
          <div id="show_note_text_<%= note.id %>">
-<<<<<<< HEAD
-           <img class="user_icon" src="<%= note.owners.first.picture_url %>"/>
-   		<div class="actual_text">
-      		 <%= note.note %>
-           </div>
-=======
            <div style="float: left; width: 20%;">
 				<img class="user_icon" <%if note.owners.first == nil %> src="/assets/question_mark.png" <%else%> src="<%= note.owners.first.picture_url %>" <%end%>/>
 		   </div>
@@ -24,11 +18,10 @@
 					}
 				</style>
 			   <h1 style="color: #8f00fd; font-size: 14px; margin: 0px; margin-bottom: 2px; padding: 0px;">Notes</h1>
-			   <div class="actual_text" style="float: left; height: 78px; width: 100%; overflow: auto; word-wrap: break-word; ">
+			   <div class="actual_text" style="float: left; width: 100%; word-wrap: break-word; ">
 				   <%= note.note %>
 			   </div>
 		   </div>
->>>>>>> f405f513c04aed04a5fbcbc4cadfe9a63f034cb9
          </div>
 
          <div id="edit_note_text_<%= note.id %>" class="edit_note_text" style="display:none">
@@ -55,20 +48,10 @@
       $("#full_note_text_<%= note.id %> .edit_icon").click(function(){
         $("#show_note_text_<%= note.id %>").toggle();
         $("#edit_note_text_<%= note.id %>").toggle();
-<<<<<<< HEAD
 	var visibleEdit = $("#show_note_text_<%= note.id %>").is(":visible");
-	/*if (visibleEdit) {
-		var curr = $("#edit_note_text_<%= note.id %> textarea").val();
-		 $("#show_note_text_<%= note.id %> .actual_text").html(simpleFormat(curr))
-		showEmbeddedContent();
-	}
-	$.colorbox.resize();*/
 
-
-=======
 		//Resize the colorbox after displaying new blocks
 		$.colorbox.resize(); 
->>>>>>> f405f513c04aed04a5fbcbc4cadfe9a63f034cb9
         $.ajax({
            url: "/notes/<%= note.id %>", 
            type: "PUT",

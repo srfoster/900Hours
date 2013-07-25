@@ -34,13 +34,11 @@
 <script>
   var list_offset = 0;
   var scroll_amount = 34;
-<<<<<<< HEAD
   var note_id;
 
 function youtube_parser(text, entireURL){
-	text = simpleFormat(text);
     var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-    var allWords = text.split(/[ ,<>]+/);
+    var allWords = text.split(/[ ,<>\n]+/);
     var urlIndicies = new Array();
     for(var i=0; i<allWords.length; i++) {
         var match = allWords[i].match(regExp);
@@ -50,23 +48,36 @@ function youtube_parser(text, entireURL){
 }
 
 function showEmbeddedContent() {
-	//originalText = $("#show_note_text_"+note_id+" .actual_text").html(simpleFormat($("#show_note_text_"+note_id+" .actual_text").html()));
 	originalText = $("#show_note_text_"+note_id+" .actual_text").html();
         var text = originalText;
-	//alert("original text: "+originalText);
          var urlIndicies = youtube_parser(text, false);
          var fullURLs = youtube_parser(text, true);
-	//alert("fullURLs.length: "+fullURLs.length);
          for(var i=0; i<fullURLs.length; i++) {
-                text = text.replace(fullURLs[i], '<br><iframe width="520" height="315" src="//www.youtube.com/embed/'+urlIndicies[i]+'" frameborder="0" allowfullscreen></iframe><br>');
+                text = text.replace(fullURLs[i], '<br><iframe width="300" height="315" src="http://www.youtube.com/embed/'+urlIndicies[i]+'" frameborder="0" allowfullscreen></iframe><br>');
         }
-	//alert("text is:  "+text);
         $("#show_note_text_"+note_id+" .actual_text").html(text);
 }
-=======
-  var note_id = -1;
->>>>>>> f405f513c04aed04a5fbcbc4cadfe9a63f034cb9
 
+	function displayColorbox() {
+		$("#show_note_text_"+note_id).show();
+        $("#edit_note_text_"+note_id).hide();
+
+        note_id = $(this).attr("note_id");
+        showEmbeddedContent();
+        $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+note_id), onClosed:function() {
+                $.ajax({
+                 url: "/notes/"+note_id, 
+                type: "PUT",
+                data: {note: {note: $("#edit_note_text_"+note_id+" textarea").val()}},
+                success: function(data){
+                        var curr = $("#edit_note_text_"+note_id+" textarea").val();
+                $("#show_note_text_"+note_id+" .actual_text").html(simpleFormat(curr));
+                var dots = "";
+               if(curr.length > 60){ dots = "..."; }
+               $("#note_text_"+note_id).html("\""+curr.replace("\n"," ").substr(0,60)+dots+"\"");
+        }});
+     }});
+	}
   $(document).ready(function(){
      $("#add_student_note").click(function(){
 	//$("#undo_delete").fadeOut("slow");
@@ -95,17 +106,16 @@ function showEmbeddedContent() {
      setupCrudFunctions();
   });
 
-<<<<<<< HEAD
-  function setupCrudFunctions(){
-     var originalText;
-=======
   function setupCrudFunctions(noteID){
+	 var originalText;
+
+
      //If a note ID was passed, automatically open the commment window
 	 if(typeof noteID != 'undefined') {
-       $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+noteID)});
+		note_id = noteID;
+		displayColorbox();
 	 }
   
->>>>>>> f405f513c04aed04a5fbcbc4cadfe9a63f034cb9
      $(".delete_icon").hover(function()
      {
         $(this).attr("src", "<%= asset_path 'delete_icon_highlight.png' %>");
@@ -127,29 +137,11 @@ function showEmbeddedContent() {
 	$("#undo_delete").fadeIn("slow");
      });
 
-<<<<<<< HEAD
 
      $(".note_text").click(function(e){
-	$("#show_note_text_"+note_id).show();
-	$("#edit_note_text_"+note_id).hide();
-
 	note_id = $(this).attr("note_id");
-	showEmbeddedContent();
-        $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+note_id), onClosed:function() {
-		$.ajax({
-          	 url: "/notes/"+note_id, 
-           	type: "PUT",
-           	data: {note: {note: $("#edit_note_text_"+note_id+" textarea").val()}},
-           	success: function(data){
-			var curr = $("#edit_note_text_"+note_id+" textarea").val();
-                $("#show_note_text_"+note_id+" .actual_text").html(simpleFormat(curr));
-                var dots = "";
-               if(curr.length > 60){ dots = "..."; }
-               $("#note_text_"+note_id).html("\""+curr.replace("\n"," ").substr(0,60)+dots+"\"");
-	}});
-     }});
+	displayColorbox();
     });
-=======
      $("#undo_text").click(function() {
 	$(".delete_icon").parent().fadeIn("slow");
 	$.ajax({
@@ -162,13 +154,6 @@ function showEmbeddedContent() {
    	note_id = -1;
 	$("#undo_delete").fadeOut("slow");
      });	
-    
-     $(".note_text").click(function(e) {
-        note_id = $(this).attr("note_id")
-        $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+note_id)});
-     });
-
->>>>>>> f405f513c04aed04a5fbcbc4cadfe9a63f034cb9
   }
 
   function fix_buttons(){
