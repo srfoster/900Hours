@@ -1,5 +1,4 @@
 class WelcomeController < ApplicationController
-
     def index
       donations            = Donation.all
       @number_of_dollars   = donations.inject(0){|f,s| f+s.amount }

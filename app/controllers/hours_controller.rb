@@ -1,4 +1,6 @@
 class HoursController < ApplicationController
+  before_filter :authorize_approved!, :only => [:create] 
+
   # GET /hours
   # GET /hours.json
   def index

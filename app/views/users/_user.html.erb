@@ -3,10 +3,8 @@
     <%= render :partial => "about_me", :locals => {:user => user} %>
     <div class="new_hour_button_container">
         <% if current_user && user.id == current_user.id %>
-            <% if user.is_approved_student? %>
+            <% if user.is_approved_student? or user.is_approved_teacher? %>
                 <button class="button" id="new_hour_button_<%= user.id %>" >+1 Hour</button>
-            <% elsif user.is_approved_teacher? %>
-                Your teacher request was approved.
             <% elsif !user.has_pending_student_requests? and !user.has_pending_teacher_requests? %>
                 <%= form_for ApplicationRequest.new do |form| %>
                     <%= form.submit "Apply As a Student", :class => "button" %>
