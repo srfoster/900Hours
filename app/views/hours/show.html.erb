@@ -2,7 +2,6 @@
     <%= render :partial => "users/hour", :locals => {:hour => @hour, :content_partial=>"hours/hour_details"
 } %>
 
-
     <div class="hour_info_container">
         
 	<div id ="undo_delete" hidden="true"><p>Successfully Deteted! </p>
@@ -18,7 +17,7 @@
         </div>
           <div class="hour_notes_list">
               <% @hour.notes.reverse.each do |note| %> 
-                  <%= render :partial => "note_list_item", :locals => {:hour => @hour, :note => note} %>
+     		<%= render :partial => "note_list_item", :locals => {:hour => @hour, :note => note} %>             
               <% end %>
           </div>
         </div>
@@ -35,8 +34,50 @@
 <script>
   var list_offset = 0;
   var scroll_amount = 34;
-  var note_id = -1;
+  var note_id;
 
+function youtube_parser(text, entireURL){
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    var allWords = text.split(/[ ,<>\n]+/);
+    var urlIndicies = new Array();
+    for(var i=0; i<allWords.length; i++) {
+        var match = allWords[i].match(regExp);
+        if (match) urlIndicies.push((entireURL) ? allWords[i] : match[7].substring(0,11));
+    }
+    return urlIndicies;
+}
+
+function showEmbeddedContent() {
+	originalText = $("#show_note_text_"+note_id+" .actual_text").html();
+        var text = originalText;
+         var urlIndicies = youtube_parser(text, false);
+         var fullURLs = youtube_parser(text, true);
+         for(var i=0; i<fullURLs.length; i++) {
+                text = text.replace(fullURLs[i], '<br><iframe width="300" height="315" src="http://www.youtube.com/embed/'+urlIndicies[i]+'" frameborder="0" allowfullscreen></iframe><br>');
+        }
+        $("#show_note_text_"+note_id+" .actual_text").html(text);
+}
+
+	function displayColorbox() {
+		$("#show_note_text_"+note_id).show();
+        $("#edit_note_text_"+note_id).hide();
+
+        note_id = $(this).attr("note_id");
+        showEmbeddedContent();
+        $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+note_id), onClosed:function() {
+                $.ajax({
+                 url: "/notes/"+note_id, 
+                type: "PUT",
+                data: {note: {note: $("#edit_note_text_"+note_id+" textarea").val()}},
+                success: function(data){
+                        var curr = $("#edit_note_text_"+note_id+" textarea").val();
+                $("#show_note_text_"+note_id+" .actual_text").html(simpleFormat(curr));
+                var dots = "";
+               if(curr.length > 60){ dots = "..."; }
+               $("#note_text_"+note_id).html("\""+curr.replace("\n"," ").substr(0,60)+dots+"\"");
+        }});
+     }});
+	}
   $(document).ready(function(){
      $("#add_student_note").click(function(){
 	//$("#undo_delete").fadeOut("slow");
@@ -66,9 +107,13 @@
   });
 
   function setupCrudFunctions(noteID){
+	 var originalText;
+
+
      //If a note ID was passed, automatically open the commment window
 	 if(typeof noteID != 'undefined') {
-       $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+noteID)});
+		note_id = noteID;
+		displayColorbox();
 	 }
   
      $(".delete_icon").hover(function()
@@ -92,6 +137,11 @@
 	$("#undo_delete").fadeIn("slow");
      });
 
+
+     $(".note_text").click(function(e){
+	note_id = $(this).attr("note_id");
+	displayColorbox();
+    });
      $("#undo_text").click(function() {
 	$(".delete_icon").parent().fadeIn("slow");
 	$.ajax({
@@ -104,12 +154,6 @@
    	note_id = -1;
 	$("#undo_delete").fadeOut("slow");
      });	
-    
-     $(".note_text").click(function(e) {
-        note_id = $(this).attr("note_id")
-        $.colorbox({opacity: .5, inline:true, href:$("#full_note_text_"+note_id)});
-     });
-
   }
 
   function fix_buttons(){

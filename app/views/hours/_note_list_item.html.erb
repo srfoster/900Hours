@@ -18,7 +18,7 @@
 					}
 				</style>
 			   <h1 style="color: #8f00fd; font-size: 14px; margin: 0px; margin-bottom: 2px; padding: 0px;">Notes</h1>
-			   <div class="actual_text" style="float: left; height: 78px; width: 100%; overflow: auto; word-wrap: break-word; ">
+			   <div class="actual_text" style="float: left; width: 100%; word-wrap: break-word; ">
 				   <%= note.note %>
 			   </div>
 		   </div>
@@ -48,6 +48,8 @@
       $("#full_note_text_<%= note.id %> .edit_icon").click(function(){
         $("#show_note_text_<%= note.id %>").toggle();
         $("#edit_note_text_<%= note.id %>").toggle();
+	var visibleEdit = $("#show_note_text_<%= note.id %>").is(":visible");
+
 		//Resize the colorbox after displaying new blocks
 		$.colorbox.resize(); 
         $.ajax({
@@ -57,13 +59,19 @@
            success: function(data){
                var curr = $("#edit_note_text_<%= note.id %> textarea").val()
                $("#show_note_text_<%= note.id %> .actual_text").html(simpleFormat(curr));
+		
+		if(visibleEdit) {
+			showEmbeddedContent();
+		}
+		$.colorbox.resize();		
 
                var dots = "";
                if(curr.length > 60){ dots = "..."; }
-
                $("#note_text_<%= note.id %>").html("\""+curr.replace("\n"," ").substr(0,60)+dots+"\"");
            }
       });
    });
   });
+
+
 </script>
