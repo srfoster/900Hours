@@ -1,7 +1,7 @@
 <div id="inner_main_container">
      <div id="mission_statement">
          <h1>
-            Mission: Give children <span class="emph">900 hours</span> of computer science <br/>
+            Mission: Give every child <span class="emph">900 hours</span> of computer science <br/>
             education <span class="emph">before they graduate</span> high school. 
          </h1>
      </div>
@@ -26,15 +26,8 @@
         </div>
         <img class="infographic" src="<%= asset_path 'InfoGraphicMoney.png' %>"></img>
     </div>
-    <div class="row">
-        <div class="row_text">
-            <h3>Okay, so how does this website help?</h3>
-            <p>This website is an educational funding platform that brings donors, instructors, and students into a direct and transparent relationship.  Unlike, say, the relationship your tax dollars have with the American school system.</p>
-            <p>Suppose you have a couple of dollars left over at the end of the month, and you want to change the world.  Make a tax-deductible donation on our home page.  We'll show you exactly which hours of education (and which students) your dollars have funded.  You'll get to see student and instructor notes for that hour, so you'll know exactly what impact you made on the world.</p>
-        </div>
-        <img class="infographic" src="<%= asset_path 'InfoGraphicTaxes.png' %>"></img>
-    </div>
 
+    <% if false %>
     <div class="row">
         <div class="row_text">
             <h3>What if I'm a parent of a student who wants to learn to code?</h3>
@@ -45,6 +38,7 @@
         </div>
         <img class="infographic" src="<%= asset_path 'InfoGraphicAPTests.png' %>"></img>
     </div>
+    <% end %>
 
 
     <div class="row">
@@ -57,11 +51,12 @@
         <img class="infographic" src="<%= asset_path 'InfoGraphic900Hours1.png' %>"></img>
     </div>
 
+
     <div class="row">
         <div class="row_text">
-            <h3>If accepted, how will my child earn an hour of education?</h3>
-            <p>If we accept a student's application, we'll work with students and parents to schedule practice hours with qualified instructors in your area.  We'll also help you locate educational summer camps and weekend opportunities.  And we'll use donations to help parents pay for these educational hours.</p>
-            <p>We'll work with instructors to keep track of every hour of education your child receives.  We'll monitor your child's progress and make sure that your child receives the best possible computer science education.</p>
+            <h3>How will my child earn an hour of education?</h3>
+            <p>Your child can earn hours in various ways: classes, workshops, summer camps, etc.</p>
+            <p>Your child should log these hours whenever they occur.  We'll monitor your child's progress and make recommnedations to ensure that your child receives the best possible computer science education.</p>
         </div>
         <img class="infographic" src="<%= asset_path 'InfoGraphic900Hours2.png' %>"></img>
     </div>

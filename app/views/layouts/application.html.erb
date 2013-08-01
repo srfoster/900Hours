@@ -22,6 +22,7 @@
     <ul type="none" id="nav_links"> 
         <li><%= link_to_unless_current "Home", "/" %></li>
         <% if current_user %>
+        <li><%= link_to_unless_current "Mission", "/mission" %></li>
           <li><%= link_to_unless_current "My Profile", "/users/#{current_user.id}" %></li>
         <% end %>
         <li><%= link_to_unless_current "Case Studies", "/users" %></li>
