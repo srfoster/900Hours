@@ -22,6 +22,42 @@ class ApplicationController < ActionController::Base
     end
     true
   end
+  
+  #Michael's Method
+  def is_student?
+	unless current_user.is_approved_student?
+	  return false
+	end
+	return true
+  end
+	  
+  def is_teacher?
+	unless current_user.is_approved_teacher?
+	  return false
+	end
+	return true
+  end
+  
+  def is_admin?
+    unless current_user.is_admin?
+	  return false
+    end
+	return true
+  end
+  
+  #Check whether the user is approved student, teacher, or admin
+  def authorize_approved!
+	unless is_student? || is_teacher? || is_admin?
+	  respond_to do |format|
+	    format.html {redirect_to root_url}
+		format.json {render json: {}, status: 401}
+	  end
+	return false
+    end
+	true
+  end
+  
+  
 
 private
 
