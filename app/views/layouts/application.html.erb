@@ -25,7 +25,6 @@
           <li><%= link_to_unless_current "My Profile", "/users/#{current_user.id}" %></li>
         <% end %>
         <li><%= link_to_unless_current "Case Studies", "/users" %></li>
-        <li><%= link_to_unless_current "Scholarships", "/contact_us" %></li>
         <% if current_user %>
           <li><%= link_to_unless_current "Sign out", "/signout" %></li>
         <% else %>
