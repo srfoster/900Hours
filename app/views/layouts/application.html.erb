@@ -24,7 +24,6 @@
         <% if current_user %>
           <li><%= link_to_unless_current "My Profile", "/users/#{current_user.id}" %></li>
         <% end %>
-        <li><%= link_to_unless_current "Mission", "/mission" %></li>
         <li><%= link_to_unless_current "Case Studies", "/users" %></li>
         <li><%= link_to_unless_current "Scholarships", "/contact_us" %></li>
         <% if current_user %>
@@ -34,6 +33,7 @@
         <% end %>
     </ul>
   </div>
+  <div style="margin-left: 195px; padding-top: 3px; font-size: 20px; color: white; line-height: 25px; float: left;">(A <span style="color:#00FF99">ThoughtSTEM</span> App)</div>
 
   <div id="main_container">
       <%= yield %>
