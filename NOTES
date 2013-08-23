@@ -1,4 +1,7 @@
 
+To approve all applications:
+
+ApplicationRequest.all.select{|r| !r.has_tag?("Approved")}.map{|r| r.approve!}
 
 
 

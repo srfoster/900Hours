@@ -64,13 +64,18 @@ class Hour < ActiveRecord::Base
     !most_recent_student_note.nil? #and !most_recent_teacher_note.nil?
   end
 
+
   
   def most_recent_hour
     user.hours.sort_by{|h| h.created_at}.last
   end 
 
+  def force_create=(f)
+    @force_create = f
+  end
+
   def most_recent_hour_is_complete
-    complete = most_recent_hour.nil? || most_recent_hour.is_complete?
+    complete = most_recent_hour.nil? || most_recent_hour.is_complete? || @force_create
 
     if !complete
        errors[:base] << "Previous hour is not complete"    

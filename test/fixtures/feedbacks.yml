@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  puzzle: 
+  difficulty: 1
+  quality: 1
+
+two:
+  user: 
+  puzzle: 
+  difficulty: 1
+  quality: 1
