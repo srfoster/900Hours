@@ -1,8 +1,5 @@
 RailsApp::Application.routes.draw do
 
-  resources :feedbacks
-
-
   resource :timezone
   resources :dollars
   resources :hours
