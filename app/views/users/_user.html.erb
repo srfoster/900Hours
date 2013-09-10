@@ -3,20 +3,7 @@
     <%= render :partial => "about_me", :locals => {:user => user} %>
     <div class="new_hour_button_container">
         <% if current_user && user.id == current_user.id %>
-            <% if user.is_approved_student? or user.is_approved_teacher? %>
-                <button class="button" id="new_hour_button_<%= user.id %>" >+1 Hour</button>
-            <% elsif !user.has_pending_student_requests? and !user.has_pending_teacher_requests? %>
-                <%= form_for ApplicationRequest.new do |form| %>
-                    <%= form.submit "Apply As a Student", :class => "button" %>
-                    <%= form.submit "Apply As a Teacher", :class => "button" %>
-                <% end %>
-            <% elsif user.has_pending_student_requests? %>
-                We'll contact you in a few days.<br/>  Your student request is under review (<%= link_to 'click here', user.pending_request, method: :delete %> to cancel it)
-            <% elsif user.has_pending_teacher_requests? %>
-                We'll contact you in a few days.<br/>  Your teacher request is under review (<%= link_to 'click here', user.pending_request, method: :delete %> to cancel it)
-            <% end %>
-        <% elsif current_user and (current_user.id == user.id or current_user.is_admin?) %>
-                <button class="button" id="new_hour_button_<%= user.id %>" >+1 Hour</button>
+           <button class="button" id="new_hour_button_<%= user.id %>" >+1 Hour</button>
         <% end %>
     </div>
     <div class="newsfeed">
